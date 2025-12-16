@@ -29,8 +29,8 @@ export default function LoginPage() {
 
     // Redirect based on role
     if (res.role === "jobseeker") {
-      router.push("/jobsDashboard");
-    } else if (res.role === "recruiter") {
+      router.push("/jobDashboard");
+    } else if (res.role === "employer") {
       router.push("/employerDashboard");
     } else {
       router.push("/");
@@ -43,7 +43,7 @@ export default function LoginPage() {
                  Login
              </h1>
 
-    <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
       <input
         placeholder="Email"
         type="email"

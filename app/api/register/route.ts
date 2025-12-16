@@ -6,7 +6,7 @@ export async function POST(req: Request) {
     console.log("Proxy received body:", body);
 
     const backendResponse = await fetch(
-      "http://localhost:6000/api/auth/register",
+      "http://localhost:8000/api/auth/register",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -30,7 +30,13 @@ export async function POST(req: Request) {
 
     console.log("Backend response data:", data);
 
-    return NextResponse.json(data, { status: backendResponse.status });
+    const normalized = {
+      success: backendResponse.ok,
+      message: data.message || (backendResponse.ok ? "success" :  "failed"),
+      ...data,
+    }
+
+    return NextResponse.json(normalized, { status: backendResponse.status });
   } catch (error) {
     console.error("Proxy error:", error);
     return NextResponse.json(
