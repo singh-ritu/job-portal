@@ -10,12 +10,20 @@ export default function jobsDashboardPage() {
   const [loading, setLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+  const [keyword, setKeyword] = useState("");
+  const [location, setLocation] = useState("");
+  const [jobType, setJobType] = useState("");
+
+  useEffect(() => {
+     setPage(1);
+  }, [keyword, location, jobType]);
 
   const fetchJobs = async () => {
     try {
       setLoading(true);
 
-      const data = await getPublicJobs({ page, limit: 10 });
+      console.log({ keyword, location, jobType, page });
+      const data = await getPublicJobs({ page, limit: 10, keyword, location, jobType });
 
       setJobs(data.jobs);
       setTotalPages(data.totalPages);
@@ -27,14 +35,47 @@ export default function jobsDashboardPage() {
       setLoading(false);
     }
   }
-
   useEffect(()=>{
-    fetchJobs();
-  },[page])
+    const timeout = setTimeout(() => {
+      fetchJobs()
+    },3000)
+    return () => clearTimeout(timeout);
+  },[keyword, page, location, jobType]);
 
     return (
      <div className="container mx-auto p-4 min-h-screen">
       <h1 className="text-2xl font-bold mb-6">Available Jobs</h1>
+
+      <div className="p-8">
+        <input
+        type="text"
+        placeholder="Search jobs"
+        value={keyword}
+        onChange={(e) => setKeyword(e.target.value)}
+        className="border px-8 py-2 rounded-md mr-4"
+      />
+
+      <input
+        type="text"
+        placeholder="Location"
+        value={location}
+        onChange={(e) => setLocation(e.target.value)}
+         className="border px-8 py-2 rounded-md mr-4"
+      />
+
+      <select
+        value={jobType}
+        onChange={(e) => setJobType(e.target.value)}
+        className="px-8 py-2 rounded-md"
+      >
+        <option value="">All Types</option>
+        <option value="Full-time">Full Time</option>
+        <option value="Part-time">Part Time</option>
+        <option value="Internship">Internship</option>
+        <option value="Contract">Contract</option>
+      </select>
+      </div>
+
       
       {loading ? (
         <p>Loading jobs...</p>
