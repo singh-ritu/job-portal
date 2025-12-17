@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {Job} from "@/types/job";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 if (!API_BASE_URL) {
   throw new Error("API base URL is not defined");
@@ -35,7 +35,11 @@ export async function getPublicJobs(params: GetJobsParams) {
   if (location) query.append("location", location);
   if (jobType) query.append("jobType", jobType);
 
-  const res = await fetch(`${API_BASE_URL}/api/jobs?${query.toString()}`)
+  const res = await fetch(`${API_BASE_URL}/api/jobs?${query.toString()}`,
+    {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
 
   if (!res.ok) {
     throw new Error("Failed to fetch jobs");
