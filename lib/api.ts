@@ -47,6 +47,16 @@ export async function getPublicJobs(params: GetJobsParams) {
   return res.json();
 }
 
+// FETCH JOB DETAILS BY ID
+ export async function getJobDetails(id: string) {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/jobs/${id}`;
+  console.log("FETCHING:", url);
+
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("Failed to fetch job details");
+  return res.json();
+}
+
 
 // REGISTER USER
 export async function registerUser(data: {

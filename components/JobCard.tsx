@@ -7,7 +7,7 @@ interface JobCardProps {
 
 export default function JobCard({ job }: JobCardProps) {
   return (
-    <Link href={`/jobs/${job._id}`}>
+    
       <div className="border rounded-lg p-4 hover:shadow-md transition cursor-pointer">
         <h2 className="text-lg font-semibold">{job.title}</h2>
 
@@ -30,7 +30,13 @@ export default function JobCard({ job }: JobCardProps) {
             </span>
           )}
         </div>
+
+        <Link href={`/jobDashboard/${job._id}`}>
+         <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">view Details</button>
+         </Link>
+
       </div>
-    </Link>
+    
+   
   );
 }
