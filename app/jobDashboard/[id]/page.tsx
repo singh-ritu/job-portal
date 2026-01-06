@@ -1,5 +1,8 @@
-import { getJobDetails } from "@/lib/api";
+import { getJobDetails, getLoggedInUserApplications, getLoggedInUserClient } from "@/lib/api";
+import { getLoggedInUserServer, getLoggedInUserApplicationsServer } from "@/lib/api.server"
 import Link from "next/link";
+import JobDetailsClient from "./jobDetailsclient"
+
 
 interface Props {
   params: Promise<{
@@ -8,8 +11,12 @@ interface Props {
 }
 
 export default async function JobDetailsPage({ params }: Props) {
+
   const { id } = await params;
   const data = await getJobDetails(id);
+  const user = await getLoggedInUserServer();
+  const applications = await getLoggedInUserApplicationsServer()
+
 
   if (!data?.job) {
     return (
@@ -23,7 +30,7 @@ export default async function JobDetailsPage({ params }: Props) {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
-      {/* Back link */}
+    
       <Link
         href="/jobDashboard"
         className="mb-6 inline-block text-sm font-medium text-blue-600 hover:underline"
@@ -31,18 +38,18 @@ export default async function JobDetailsPage({ params }: Props) {
         ← Back to jobs
       </Link>
 
-      {/* Card */}
+    
       <div className="rounded-lg bg-white p-8 shadow-sm border border-gray-200">
-        {/* Title */}
+       
         <h1 className="text-3xl font-semibold text-gray-900 mb-3">
           {job.title}
         </h1>
 
-        {/* Meta */}
+       
         <div className="flex flex-wrap gap-6 text-sm text-gray-600 mb-6">
           <span>
             <strong className="text-gray-800">Company:</strong>{" "}
-            {job.postedBy?.name}
+            {job.company}
           </span>
           <span>
             <strong className="text-gray-800">Location:</strong>{" "}
@@ -54,7 +61,7 @@ export default async function JobDetailsPage({ params }: Props) {
           </span>
         </div>
 
-        {/* Description */}
+      
         <div className="mb-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-2">
             Job Description
@@ -69,10 +76,7 @@ export default async function JobDetailsPage({ params }: Props) {
             Posted on{" "}
             {new Date(job.createdAt).toLocaleDateString()}
           </span>
-
-          <button className="inline-flex items-center justify-center rounded-md bg-blue-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-blue-700 transition">
-            Apply Now
-          </button>
+    <JobDetailsClient job={job} user={user} applications={applications} />
         </div>
       </div>
     </div>

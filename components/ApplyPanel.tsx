@@ -6,6 +6,7 @@ type ApplyPanelProps = {
   jobId: string;
   existingResumeUrl?: string | null;
   onSuccess: () => void;
+  onClose?: () => void;
 };
 
 export default function ApplyPanel({

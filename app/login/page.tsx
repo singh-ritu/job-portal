@@ -19,18 +19,11 @@ export default function LoginPage() {
 
     if (!res.success) {
       alert(res.message);
-      return;
     }
-
-    // Save JWT token (if returned)
-    if (res.token) {
-      localStorage.setItem("token", res.token);
-    }
-
-    // Redirect based on role
-    if (res.role === "jobseeker") {
+   
+    if (res.user.role === "jobseeker") {
       router.push("/jobDashboard");
-    } else if (res.role === "employer") {
+    } else if (res.user.role === "employer") {
       router.push("/employerDashboard");
     } else {
       router.push("/");

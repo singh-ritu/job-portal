@@ -56,7 +56,26 @@ export async function getPublicJobs(params: GetJobsParams) {
   if (!res.ok) throw new Error("Failed to fetch job details");
   return res.json();
 }
+// FETCH LOGGED IN USER
+export async function getLoggedInUserClient() {
+  const res = await fetch(`${process.env.API_BASE_URL}/auth/me`, {
+    credentials: "include",
+  });
 
+  if (!res.ok) return null;
+  return res.json();
+}
+
+// FETCH LOGGED IN USER APPLICATIONS
+export async function getLoggedInUserApplications() {
+  const appsRes = await fetch(`${API_BASE_URL}/applications/my`);
+
+  if (!appsRes.ok) {
+    throw new Error("Failed to fetch user applications");
+  }
+  return appsRes.json();
+ 
+}
 
 // REGISTER USER
 export async function registerUser(data: {
@@ -65,11 +84,12 @@ export async function registerUser(data: {
   password: string;
   role: string;
 }) {
-  const res = await fetch("/api/register", 
+  const res = await fetch(`${API_BASE_URL}/api/auth/register`, 
     {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
+    credentials: "include",
   });
 
   if (!res.ok) {
@@ -85,11 +105,12 @@ export async function loginUser(data: {
   email: string;
   password: string;
 }) {
-  const res = await fetch("/api/login", 
+  const res = await fetch(`${API_BASE_URL}/api/auth/login`, 
     {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify(data),
+    credentials: "include",
   });
 
   const text = await res.text();
