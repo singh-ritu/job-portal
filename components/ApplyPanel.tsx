@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
+
 type ApplyPanelProps = {
   jobId: string;
   existingResumeUrl?: string | null;
@@ -30,18 +32,23 @@ export default function ApplyPanel({
       setError(null);
       setUploading(true);
 
-      const res = await fetch("/api/upload/resume", {
+      const res = await fetch(`${API_BASE_URL}/api/upload/resume`, {
         method: "POST",
         body: formData,
+        credentials: "include",
       });
 
       if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.message || "Resume upload failed");
-      }
+          const err = await res.json();
+          throw new Error(err.message || "Resume upload failed");
+        }
 
-      const data = await res.json();
-      setResumeUrl(data.resumeUrl);
+        const data = await res.json();
+        console.log("resumeUrl", data.resumeUrl);
+        setResumeUrl(data.resumeUrl);
+        console.log("resumeUrl", resumeUrl);
+
+         return data.resumeUrl; 
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -57,12 +64,13 @@ export default function ApplyPanel({
       setError(null);
       setSubmitting(true);
 
-      const res = await fetch(`/api/applications/apply/${jobId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/applications/apply/${jobId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ resumeUrl }),
+        credentials: "include",
       });
 
       if (!res.ok) {
@@ -100,6 +108,7 @@ export default function ApplyPanel({
         <div className="mb-4">
           <input
             type="file"
+            name="resume"
             accept=".pdf,.doc,.docx"
             onChange={(e) => {
               if (e.target.files?.[0]) {

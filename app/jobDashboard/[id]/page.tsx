@@ -1,4 +1,4 @@
-import { getJobDetails, getLoggedInUserApplications, getLoggedInUserClient } from "@/lib/api";
+import { getJobDetails} from "@/lib/api";
 import { getLoggedInUserServer, getLoggedInUserApplicationsServer } from "@/lib/api.server"
 import Link from "next/link";
 import JobDetailsClient from "./jobDetailsclient"
