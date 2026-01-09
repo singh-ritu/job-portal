@@ -22,6 +22,7 @@ export default function ApplyPanel({
   const [uploading, setUploading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [hasApplied, setHasApplied] = useState(false);
 
   /* ---------------- Resume Upload ---------------- */
   const handleResumeUpload = async (file: File) => {
@@ -73,12 +74,14 @@ export default function ApplyPanel({
         credentials: "include",
       });
 
+      console.log("Apply response:", res);
       if (!res.ok) {
         const err = await res.json();
         throw new Error(err.message || "Failed to apply");
       }
+      setHasApplied(true);
 
-      onSuccess();
+      onSuccess?.();
     } catch (err: any) {
       setError(err.message);
     } finally {

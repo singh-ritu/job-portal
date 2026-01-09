@@ -26,7 +26,11 @@ export default async function JobDetailsPage({ params }: Props) {
     );
   }
 
-  const job = data.job;
+    const job = data.job;
+    console.log("applications", applications);
+    const alreadyApplied = applications.some(
+      (app:any) => app.job._id.toString() === job._id.toString()
+      );
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
@@ -76,7 +80,15 @@ export default async function JobDetailsPage({ params }: Props) {
             Posted on{" "}
             {new Date(job.createdAt).toLocaleDateString()}
           </span>
-    <JobDetailsClient job={job} user={user} applications={applications} />
+          {
+            job.isActive ? (
+                <JobDetailsClient job={job} user={user} applications={applications} alreadyApplied={alreadyApplied}/>
+            ):(
+              <span className="text-red-600 font-semibold">
+                This job posting is no longer active.
+              </span>
+            )
+          }
         </div>
       </div>
     </div>
