@@ -3,9 +3,10 @@ import { Job } from "@/types/job";
 
 interface JobCardProps {
   job: Job;
+  appliedJobIds?: string[];
 }
 
-export default function JobCard({ job }: JobCardProps) {
+export default function JobCard({ job, appliedJobIds }: JobCardProps) {
   return (
     
       <div className="border rounded-lg p-4 hover:shadow-md transition cursor-pointer">
@@ -32,7 +33,11 @@ export default function JobCard({ job }: JobCardProps) {
         </div>
 
         <Link href={`/jobDashboard/${job._id}`}>
-         <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">view Details</button>
+        {appliedJobIds?.includes(job._id) ? (
+             <button disabled  className="mt-6 px-4 py-2 bg-gray-400 text-white rounded">Already Applied</button>
+        ):(
+            <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">view Details</button>
+        )}
          </Link>
 
       </div>

@@ -53,3 +53,4 @@ export async function getLoggedInUserApplicationsServer() {
 
   return res.json();
 }
+ 

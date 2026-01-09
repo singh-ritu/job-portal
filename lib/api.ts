@@ -47,6 +47,23 @@ export async function getPublicJobs(params: GetJobsParams) {
   return res.json();
 }
 
+// FETCH JOBS-IDS APPLIED BY LOGGED IN USER
+export async function getLoggedInUserAppliedJobsServer() {
+  const res = await fetch(`${API_BASE_URL}/api/applications/my`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch user applications");
+  }
+  const applications = await res.json();
+  // Extract job IDs from applications
+  const appliedJobIds = applications.map((app: any) => app.job._id.toString());
+  return appliedJobIds;
+}
+
 // FETCH JOB DETAILS BY ID
  export async function getJobDetails(id: string) {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/api/jobs/${id}`;

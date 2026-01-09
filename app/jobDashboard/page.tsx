@@ -1,8 +1,9 @@
 "use client";
-import { use, useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import { Job } from "@/types/job";
 import { getPublicJobs } from "@/lib/api";
 import JobCard from "@/components/JobCard";
+import { getLoggedInUserAppliedJobsServer} from "@/lib/api";
 
 
 export default function jobsDashboardPage() {
@@ -13,6 +14,7 @@ export default function jobsDashboardPage() {
   const [keyword, setKeyword] = useState("");
   const [location, setLocation] = useState("");
   const [jobType, setJobType] = useState("");
+  const [appliedJobs, setAppliedJobs] = useState<string[]>([]);
 
   useEffect(() => {
      setPage(1);
@@ -24,8 +26,11 @@ export default function jobsDashboardPage() {
 
       console.log({ keyword, location, jobType, page });
       const data = await getPublicJobs({ page, limit: 10, keyword, location, jobType });
+      const appliedJobs = await getLoggedInUserAppliedJobsServer();
+      console.log("appliedJobs", appliedJobs);
 
       setJobs(data.jobs);
+      setAppliedJobs(appliedJobs);
       setTotalPages(data.totalPages);
 
     } catch (error) {
@@ -41,6 +46,8 @@ export default function jobsDashboardPage() {
     },3000)
     return () => clearTimeout(timeout);
   },[keyword, page, location, jobType]);
+
+   
 
     return (
      <div className="container mx-auto p-4 min-h-screen">
@@ -84,7 +91,7 @@ export default function jobsDashboardPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {jobs.map((job) => (
-            <JobCard key={job._id} job={job} />
+            <JobCard key={job._id} job={job} appliedJobIds={appliedJobs}/>
           ))}
         </div>
       )}
