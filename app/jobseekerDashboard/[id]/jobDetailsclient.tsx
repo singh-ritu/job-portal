@@ -19,7 +19,7 @@ export default function JobDetailsClient({
       <p className="mt-4">{job.description}</p>
 
       {/* Apply Section */}
-      {user?.role === "jobseeker" && (
+      {user?.user.role === "jobseeker" && (
         <>
           {!applied ? (
             <button

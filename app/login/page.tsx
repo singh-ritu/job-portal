@@ -22,7 +22,7 @@ export default function LoginPage() {
     }
    
     if (res.user.role === "jobseeker") {
-      router.push("/jobDashboard");
+      router.push("/jobseekerDashboard");
     } else if (res.user.role === "employer") {
       router.push("/employerDashboard");
     } else {
