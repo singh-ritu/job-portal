@@ -1,7 +1,8 @@
-// app/jobseeker/dashboard/layout.tsx
+// app/employer/dashboard/layout.tsx
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import Sidebar from "../../components/JobseekerSidebar"; // <-- client component
+import Link from "next/link";
+import Sidebar from "../../components/EmployerSidebar"; 
 
 
 function getUserFromToken(token: string | undefined) {
@@ -10,22 +11,31 @@ function getUserFromToken(token: string | undefined) {
   try {
     const payload = token.split(".")[1];
     const decoded = JSON.parse(Buffer.from(payload, "base64").toString());
-    return decoded; // { id, email, role, name }
+    return decoded; 
   } catch {
     return null;
   }
 }
-export default async function JobseekerLayout({ children }: { children: React.ReactNode }) {
+
+
+export default async function EmployerLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value ?? "";
 
   const user = getUserFromToken(token);
+
+  // Role + auth guard
   if (!user) redirect("/login");
-  if (user.role !== "jobseeker") redirect("/unauthorized");
+  if (user.role !== "employer") redirect("/unauthorized");
 
   return (
     <div className="min-h-screen flex bg-gray-100">
-      <Sidebar />  {/* client component handles active link */}
+      <Sidebar />
       <main className="flex-1 p-8 bg-gray-100">{children}</main>
     </div>
   );
