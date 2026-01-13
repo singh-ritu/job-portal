@@ -4,6 +4,7 @@ import { Job } from "@/types/job";
 import { getPublicJobs } from "@/lib/api";
 import JobCard from "@/components/JobCard";
 import { getLoggedInUserAppliedJobsServer} from "@/lib/api";
+import Link from "next/link";
 
 
 export default function jobsDashboardPage() {
@@ -51,7 +52,11 @@ export default function jobsDashboardPage() {
 
     return (
      <div className="container mx-auto p-4 min-h-screen">
-      <h1 className="text-2xl font-bold mb-6">Available Jobs</h1>
+      <div className="flex w-full justify-between align-items-center mb-6">
+        <h1 className="text-2xl font-bold mb-6">Available Jobs</h1>
+        <Link href="/applications" className="text-blue-600 hover:underline font-bold">My Applications</Link>
+        <Link href="/profile" className="text-blue-600 hover:underline font-bold">My Profile</Link>
+      </div>
 
       <div className="p-8">
         <input

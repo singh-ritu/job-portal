@@ -14,7 +14,7 @@ export async function getLoggedInUserServer() {
     .map(c => `${c.name}=${c.value}`)
     .join("; ");
 
-   
+    console.log("SERVER COOKIE HEADER:", cookieHeader || "EMPTY");
 
   const res = await fetch(`${API_BASE_URL}/api/auth/me`, {
     headers: {
@@ -22,6 +22,7 @@ export async function getLoggedInUserServer() {
     },
     cache: "no-store",
   });
+  console.log("AUTH /me STATUS:", res.status);
 
 
   if (!res.ok) return null;
