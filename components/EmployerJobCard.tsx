@@ -45,8 +45,9 @@ export default function JobCard({ job, onDelete }: JobCardProps) {
         </p>
 
         <div className="flex gap-4 items-center">
+         
           <Link
-            href={`/employerDashboard/jobs/${job._id}/applicants`}
+            href={`/employerDashboard/${job._id}/applicants`}
             className={`text-sm font-medium ${
               job.applicantsCount === 0
                 ? "text-gray-400 pointer-events-none"
