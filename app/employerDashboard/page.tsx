@@ -1,117 +1,82 @@
-"use client"; 
+"use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { FaEdit, FaTrash } from "react-icons/fa";
-
-interface Job {
-  _id: string;
-  title: string;
-  company: string;
-  location: string;
-  createdAt: string;
-}
-
+import JobCard from "../../components/EmployerJobCard";
+import { EmployerJob } from "@/types/employerJob";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
-export default function MyJobsPage() {
-  const [jobs, setJobs] = useState<Job[]>([]);
+export default function EmployerDashboardPage() {
+  const [jobs, setJobs] = useState<EmployerJob[]>([]);
   const [loading, setLoading] = useState(true);
-
-  
-  const fetchJobs = async () => {
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/jobs/my-jobs`,{
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-      });
-      const data = await res.json();
-      console.log(data);
-      if (data.success)
-      setJobs(data.jobs);
-      console.log(jobs);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [error, setError] = useState("");
 
   useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const res = await fetch(
+          `${API_BASE_URL}/api/jobs/my-jobs`,
+          {
+            method: "GET",
+            credentials: "include", // IMPORTANT for cookies/JWT
+          }
+        );
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch jobs");
+        }
+
+        const data = await res.json();
+        setJobs(data.jobs);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchJobs();
   }, []);
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this job?")) return;
-
+  const handleDeleteJob = async (jobId: string) => {
     try {
-      const res = await fetch(`${API_BASE_URL}/api/jobs/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/jobs/${jobId}`, {
         method: "DELETE",
         credentials: "include",
       });
-      const data = await res.json();
-      if (data.success) {
-       
-        alert("Job deleted successfully");
-        setJobs((prev) => prev.filter((job) => job._id !== id));
+
+      if (!res.ok) {
+        alert("Failed to delete job");
+        return;
       }
-    } catch (err) {
-      console.error(err);
-      alert("Failed to delete job");
+
+      // Optimistic UI update
+      setJobs((prev) => prev.filter((job) => job._id !== jobId));
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong");
     }
   };
 
-  if (loading) return <p>Loading jobs...</p>;
+  if (loading) {
+    return <p className="text-gray-600">Loading jobs...</p>;
+  }
 
-  if (!jobs.length)
-    return (
-      <div className="flex flex-col items-center justify-center py-20">
-        <p className="text-gray-500 text-lg">No jobs posted yet.</p>
-        <Link
-          href="/employer/dashboard/jobs/create"
-          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-        >
-          Create a Job
-        </Link>
-      </div>
-    );
+  if (error) {
+    return <p className="text-red-500">{error}</p>;
+  }
 
   return (
-    <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-bold text-gray-800">My Jobs</h1>
-      <div className="grid gap-4 md:grid-cols-2">
-        {jobs.map((job) => (
-          <div
-            key={job._id}
-            className="bg-white p-4 rounded-lg shadow hover:shadow-md transition flex flex-col justify-between"
-          >
-            <div>
-              <h2 className="text-lg font-semibold text-gray-800">{job.title}</h2>
-              <p className="text-gray-500">{job.company}</p>
-              <p className="text-gray-400 text-sm">{job.location}</p>
-              <p className="text-gray-400 text-xs mt-1">
-                Posted on {new Date(job.createdAt).toLocaleDateString()}
-              </p>
-            </div>
-            <div className="flex gap-2 mt-4">
-              <Link
-                href={`/employerDashboard/${job._id}`}
-                className="flex items-center gap-1 px-3 py-1 bg-yellow-100 text-yellow-700 rounded hover:bg-yellow-200"
-              >
-                <FaEdit /> Edit
-              </Link>
-              <button
-                onClick={() => handleDelete(job._id)}
-                className="flex items-center gap-1 px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200"
-              >
-                <FaTrash /> Delete
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+    <div className="space-y-6">
+      <h1 className="text-2xl font-semibold">My Jobs</h1>
+
+      {jobs.length === 0 ? (
+        <p className="text-gray-500">No jobs posted yet.</p>
+      ) : (
+        jobs.map((job) => (
+          <JobCard key={job._id} job={job} onDelete={handleDeleteJob}/>
+        ))
+      )}
     </div>
   );
 }
