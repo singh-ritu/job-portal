@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import JobCard from "../../components/EmployerJobCard";
 import { EmployerJob } from "@/types/employerJob";
+import Link from "next/link";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
@@ -18,7 +19,7 @@ export default function EmployerDashboardPage() {
           `${API_BASE_URL}/api/jobs/my-jobs`,
           {
             method: "GET",
-            credentials: "include", // IMPORTANT for cookies/JWT
+            credentials: "include", 
           }
         );
 
@@ -71,12 +72,33 @@ export default function EmployerDashboardPage() {
       <h1 className="text-2xl font-semibold">My Jobs</h1>
 
       {jobs.length === 0 ? (
-        <p className="text-gray-500">No jobs posted yet.</p>
-      ) : (
-        jobs.map((job) => (
-          <JobCard key={job._id} job={job} onDelete={handleDeleteJob}/>
-        ))
-      )}
+  <div className="flex flex-col items-center justify-center border border-dashed border-gray-300 rounded-lg p-10 bg-gray-50 text-center">
+    <h2 className="text-xl font-semibold text-gray-800 mb-2">
+      You haven’t posted any jobs yet
+    </h2>
+
+    <p className="text-gray-500 mb-6 max-w-md">
+      Start attracting candidates by creating your first job posting.
+      It only takes a few minutes to go live.
+    </p>
+
+    <Link
+      href="/employerDashboard/create"
+      className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium transition"
+    >
+      + Create Job
+    </Link>
+  </div>
+) : (
+  jobs.map((job) => (
+    <JobCard
+      key={job._id}
+      job={job}
+      onDelete={handleDeleteJob}
+    />
+  ))
+)}
+
     </div>
   );
 }

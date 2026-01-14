@@ -4,7 +4,7 @@ import { Job } from "@/types/job";
 import { getPublicJobs } from "@/lib/api";
 import JobCard from "@/components/JobCard";
 import { getLoggedInUserAppliedJobsServer} from "@/lib/api";
-import Link from "next/link";
+
 
 
 export default function jobsDashboardPage() {
