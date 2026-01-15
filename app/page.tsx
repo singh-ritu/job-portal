@@ -6,6 +6,8 @@ import { Header } from "@/components/Header";
 import Footer from "@/components/Footer";
 import { HeroSection } from "@/components/HeroSection";
 import { SearchBar } from "@/components/SearchBar";
+import { StatsSection } from "@/components/StatsSection";
+import { CTASection } from "@/components/CtaSection";
 
 export default function Home() {
   const router = useRouter();
@@ -16,6 +18,8 @@ export default function Home() {
         <div className="min-h-screen">
           <HeroSection/>
           <SearchBar/>
+          <StatsSection/>
+          <CTASection/>
         </div>
       </main>
       <Footer />

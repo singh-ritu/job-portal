@@ -9,7 +9,7 @@ export function SearchBar() {
         <div className="mx-auto max-w-4xl bg-card rounded-lg shadow-md border border-gray-200 p-6">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 flex items-center gap-2 border border-gray-200 shadow-md rounded-md px-4 py-2">
-              <Search className="h-5 w-5 text-muted-foreground" />
+              <Search className="h-5 w-5 text-(--muted-foreground)" />
               <input
                 type="text"
                 placeholder="Job title, keywords, or company"
@@ -17,7 +17,7 @@ export function SearchBar() {
               />
             </div>
             <div className="flex-1 flex items-center gap-2 border border-gray-200 shadow-md rounded-md px-4 py-2">
-              <MapPin className="h-5 w-5 text-muted-foreground" />
+              <MapPin className="h-5 w-5 text-(--muted-foreground)" />
               <input
                 type="text"
                 placeholder="City or remote"
