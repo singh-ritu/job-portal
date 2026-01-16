@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import { Header } from "@/components/Header";
-import Footer from "@/components/Footer";
+import {Footer} from "@/components/Footer";
 import { HeroSection } from "@/components/HeroSection";
 import { SearchBar } from "@/components/SearchBar";
 import { StatsSection } from "@/components/StatsSection";
