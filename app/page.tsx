@@ -9,6 +9,8 @@ import { SearchBar } from "@/components/SearchBar";
 import { StatsSection } from "@/components/StatsSection";
 import { CTASection } from "@/components/CtaSection";
 import { FeaturesSection } from "@/components/FeatureSection";
+import { CategoriesSection } from "@/components/CategoriesSection";
+import { FeaturedJobsSection } from "@/components/FeaturedJobSection";
 
 export default function Home() {
   const router = useRouter();
@@ -21,6 +23,8 @@ export default function Home() {
           <SearchBar/>
           <StatsSection/>
           <FeaturesSection/>
+          <CategoriesSection/>
+          <FeaturedJobsSection/>
           <CTASection/>
         </div>
       </main>
