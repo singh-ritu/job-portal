@@ -11,6 +11,7 @@ import { CTASection } from "@/components/CtaSection";
 import { FeaturesSection } from "@/components/FeatureSection";
 import { CategoriesSection } from "@/components/CategoriesSection";
 import { FeaturedJobsSection } from "@/components/FeaturedJobSection";
+import { TestimonialsSection } from "@/components/TestimonialsSection";
 
 export default function Home() {
   const router = useRouter();
@@ -25,6 +26,7 @@ export default function Home() {
           <FeaturesSection/>
           <CategoriesSection/>
           <FeaturedJobsSection/>
+          <TestimonialsSection/>
           <CTASection/>
         </div>
       </main>
