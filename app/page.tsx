@@ -8,6 +8,7 @@ import { HeroSection } from "@/components/HeroSection";
 import { SearchBar } from "@/components/SearchBar";
 import { StatsSection } from "@/components/StatsSection";
 import { CTASection } from "@/components/CtaSection";
+import { FeaturesSection } from "@/components/FeatureSection";
 
 export default function Home() {
   const router = useRouter();
@@ -19,6 +20,7 @@ export default function Home() {
           <HeroSection/>
           <SearchBar/>
           <StatsSection/>
+          <FeaturesSection/>
           <CTASection/>
         </div>
       </main>
