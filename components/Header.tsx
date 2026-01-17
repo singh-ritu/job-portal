@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { Briefcase } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function Header() {
+    const router = useRouter();
     return(
         <header className="sticky top-0 z-50 w-full border-b-gray-700 bg-white shadow-sm cursor-pointer">
           <div className="container mx-auto flex h-16 items-center justify-between px-4"> 
@@ -24,10 +26,14 @@ export function Header() {
                 </Link>
              </nav>
             <div className="hidden md:flex items-center gap-3">
-                <button className="text-sm font-medium px-4 py-2 rounded hover:bg-[#36ad34] hover:text-white transition-colors cursor-pointer">
+                <button className="text-sm font-medium px-4 py-2 rounded hover:bg-[#36ad34] hover:text-white transition-colors cursor-pointer"
+                onClick={()=> router.push('/login')}
+                >
                     Sign In
                 </button>
-                <button className="text-sm font-medium px-4 py-2 rounded bg-[#3456ad] hover:bg-[#5779ce] text-white transition-colors cursor-pointer">
+                <button className="text-sm font-medium px-4 py-2 rounded bg-[#3456ad] hover:bg-[#5779ce] text-white transition-colors cursor-pointer"
+                onClick={() => router.push("/register")}
+                >
                     Post a Job
                 </button>
              </div>

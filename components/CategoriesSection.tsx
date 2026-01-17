@@ -1,8 +1,10 @@
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Card, CardContent } from "@/components/ui/card"
 import { Code, Palette, LineChart, Megaphone, Wrench, Heart, GraduationCap, Building } from "lucide-react"
 
 export function CategoriesSection() {
+  const router = useRouter();
   const categories = [
     { icon: Code, name: "Technology", count: "12,543 jobs" },
     { icon: Palette, name: "Design", count: "4,231 jobs" },
@@ -28,7 +30,7 @@ export function CategoriesSection() {
           {categories.map((category) => {
             const Icon = category.icon
             return (
-              <Link key={category.name} href={`/jobs/${category.name.toLowerCase()}`}>
+              <Link key={category.name} href={"/login"}>
                 <Card className="hover:shadow-lg transition-shadow shadow-md border border-gray-200">
                   <CardContent className="pt-6 text-center">
                     <div className="mb-3 inline-flex items-center justify-center w-12 h-12 rounded-lg bg-[#ebf5e9]">

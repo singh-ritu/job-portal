@@ -8,7 +8,7 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <Briefcase className="h-6 w-6 text-primary" />
+              <Briefcase className="h-6 w-6 text-[#3456ad]" />
               <span className="text-xl font-semibold">JobPortal</span>
             </Link>
             <p className="text-sm text-(--muted-foreground) leading-relaxed">

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import ApplyPanel from "@/components/ApplyPanel";
+import { USER_ENUMS } from "@/app/enums/user.enums";
 
 export default function JobDetailsClient({
   job,
@@ -19,7 +20,7 @@ export default function JobDetailsClient({
       <p className="mt-4">{job.description}</p>
 
       {/* Apply Section */}
-      {user?.user.role === "jobseeker" && (
+      {user?.user.role === USER_ENUMS.JOB_SEEKER && (
         <>
           {!applied ? (
             <button

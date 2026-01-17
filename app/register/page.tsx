@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { registerUser } from "../../lib/api";
 import { useRouter } from "next/navigation";
+import { USER_ENUMS } from "../enums/user.enums";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -11,7 +12,7 @@ export default function RegisterPage() {
     name: "",
     email: "",
     password: "",
-    role: "jobseeker",
+    role: USER_ENUMS.JOB_SEEKER,
   });
 
   const handleSubmit = async (e: any) => {
@@ -28,58 +29,58 @@ export default function RegisterPage() {
   };
 
   return (
-   <div className="min-h-screen flex items-center justify-center bg-gray-100">
-  <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
-    <h1 className="text-2xl font-semibold text-center mb-6">
-      Register
-    </h1>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
+        <h1 className="text-2xl font-semibold text-center mb-6">
+          Register
+        </h1>
 
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <input
-        placeholder="Name"
-        value={form.name}
-        onChange={(e) => setForm({ ...form, name: e.target.value })}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        required
-      />
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            placeholder="Name"
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
 
-      <input
-        placeholder="Email"
-        value={form.email}
-        onChange={(e) => setForm({ ...form, email: e.target.value })}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        required
-      />
+          <input
+            placeholder="Email"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
 
-      <input
-        placeholder="Password"
-        type="password"
-        value={form.password}
-        onChange={(e) =>
-          setForm({ ...form, password: e.target.value })
-        }
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        required
-      />
+          <input
+            placeholder="Password"
+            type="password"
+            value={form.password}
+            onChange={(e) =>
+              setForm({ ...form, password: e.target.value })
+            }
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
 
-      <select
-        value={form.role}
-        onChange={(e) => setForm({ ...form, role: e.target.value })}
-        className="w-full px-4 py-2 border rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-        <option value="jobseeker">Job Seeker</option>
-        <option value="employer">Recruiter</option>
-      </select>
+          <select
+            value={form.role}
+            onChange={(e) => setForm({ ...form, role: e.target.value })}
+            className="w-full px-4 py-2 border rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value={USER_ENUMS.JOB_SEEKER}>Job Seeker</option>
+            <option value={USER_ENUMS.EMPLOYER}>Recruiter</option>
+          </select>
 
-      <button
-        type="submit"
-        className="w-full bg-blue-600 text-white py-2 rounded-md font-semibold hover:bg-blue-700 transition"
-      >
-        Register
-      </button>
-    </form>
-  </div>
-</div>
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 rounded-md font-semibold hover:bg-blue-700 transition"
+          >
+            Register
+          </button>
+        </form>
+      </div>
+    </div>
 
   );
 }

@@ -1,0 +1,6 @@
+const USER_ENUMS = {
+  JOB_SEEKER: "JOB_SEEKER",
+  EMPLOYER: "EMPLOYER"
+}
+
+export { USER_ENUMS };
