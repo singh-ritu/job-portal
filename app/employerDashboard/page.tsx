@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import JobCard from "../../components/EmployerJobCard";
 import { EmployerJob } from "@/types/employerJob";
 import Link from "next/link";
+import { LayoutDashboardIcon } from "lucide-react";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
@@ -19,7 +20,7 @@ export default function EmployerDashboardPage() {
           `${API_BASE_URL}/api/jobs/my-jobs`,
           {
             method: "GET",
-            credentials: "include", 
+            credentials: "include",
           }
         );
 
@@ -51,7 +52,6 @@ export default function EmployerDashboardPage() {
         return;
       }
 
-      // Optimistic UI update
       setJobs((prev) => prev.filter((job) => job._id !== jobId));
     } catch (error) {
       console.error(error);
@@ -68,36 +68,41 @@ export default function EmployerDashboardPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-semibold">My Jobs</h1>
+    <div className="min-h-screen flex flex-col">
+      <div className="w-full border items-center border-gray-200 shadow-md p-4 rounded-md">
+        <div className="flex items-center gap-3">
+          <LayoutDashboardIcon className="h-6 w-6 text-[#3456ad]" />
+          <span className="font-semibold">Manage Your Hiring, All in One Place</span>
+        </div>
+      </div>
 
       {jobs.length === 0 ? (
-  <div className="flex flex-col items-center justify-center border border-dashed border-gray-300 rounded-lg p-10 bg-gray-50 text-center">
-    <h2 className="text-xl font-semibold text-gray-800 mb-2">
-      You haven’t posted any jobs yet
-    </h2>
+        <div className="flex flex-col mt-8 items-center justify-center border border-dashed border-gray-400 rounded-lg p-10 bg-gray-50 text-center">
+          <h2 className="text-xl font-semibold text-(--muted-foreground) mb-2">
+            You haven’t posted any jobs yet
+          </h2>
 
-    <p className="text-gray-500 mb-6 max-w-md">
-      Start attracting candidates by creating your first job posting.
-      It only takes a few minutes to go live.
-    </p>
+          <p className="text-gray-400 text-sm mb-6 max-w-md">
+            Start attracting candidates by creating your first job posting.
+            It only takes a few minutes to go live.
+          </p>
 
-    <Link
-      href="/employerDashboard/create"
-      className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium transition"
-    >
-      + Create Job
-    </Link>
-  </div>
-) : (
-  jobs.map((job) => (
-    <JobCard
-      key={job._id}
-      job={job}
-      onDelete={handleDeleteJob}
-    />
-  ))
-)}
+          <Link
+            href="/employerDashboard/create"
+            className="inline-flex items-center gap-2 bg-[#3456ad] hover:bg-[#5779ce] text-white px-6 py-3 rounded-md font-medium transition"
+          >
+            + Create Job
+          </Link>
+        </div>
+      ) : (
+        jobs.map((job) => (
+          <JobCard
+            key={job._id}
+            job={job}
+            onDelete={handleDeleteJob}
+          />
+        ))
+      )}
 
     </div>
   );

@@ -18,55 +18,53 @@ export default function JobCard({ job, onDelete }: JobCardProps) {
   };
 
   return (
-    <div className="border rounded-lg p-5 bg-white shadow-sm">
-      <div className="flex justify-between items-start">
+    <div className="border border-gray-200 shadow-md rounded-lg p-5 my-4">
+      <div className="flex justify-between items-start cursor-pointer">
         <div>
           <h2 className="text-lg font-semibold">{job.title}</h2>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-(--muted-foreground)">
             {job.company} • {job.location}
           </p>
         </div>
 
         <span
-          className={`text-xs px-2 py-1 rounded ${
-            job.isActive
-              ? "bg-green-100 text-green-700"
-              : "bg-red-100 text-red-700"
-          }`}
+          className={`text-xs px-2 py-1 rounded ${job.isActive
+            ? "text-white bg-[#36ad34]"
+            : "text-white bg-[#a44242]"
+            }`}
         >
           {job.isActive ? "Active" : "Closed"}
         </span>
       </div>
 
-      <div className="mt-4 flex items-center justify-between">
-        <p className="text-sm text-gray-700">
+      <div className="mt-4 flex items-center justify-between cursor-pointer">
+        <p className="text-sm text-(--muted-foreground)">
           Applicants:{" "}
-          <span className="font-semibold">{job.applicantsCount}</span>
+          <span className="font-semibold text-[#3456ad]">{job.applicantsCount}</span>
         </p>
 
         <div className="flex gap-4 items-center">
-         
+
           <Link
             href={`/employerDashboard/${job._id}/applicants`}
-            className={`text-sm font-medium ${
-              job.applicantsCount === 0
-                ? "text-gray-400 pointer-events-none"
-                : "text-blue-600 hover:underline"
-            }`}
+            className={`text-sm text-white font-medium border border-gray-200 shadow-sm px-2 py-1 rounded ${job.applicantsCount === 0
+              ? "bg-[#607abe] pointer-events-none"
+              : "bg-[#3456ad] hover:underline"
+              }`}
           >
             View Applicants
           </Link>
 
           <Link
             href={`/employerDashboard/${job._id}/update`}
-            className="text-sm font-medium text-indigo-600 hover:underline"
+            className="text-sm font-medium text-[#3456ad] hover:underline rounded border border-gray-200 shadow-sm px-4 py-1"
           >
             Edit
           </Link>
 
           <button
             onClick={handleDelete}
-            className="text-sm font-medium text-red-600 hover:underline"
+            className="text-sm font-medium px-2 py-1 border border-gray-200 shadow-sm rounded text-[#a44242] hover:underline"
           >
             Delete
           </button>
