@@ -1,6 +1,6 @@
 const USER_ENUMS = {
-  JOB_SEEKER: "JOB_SEEKER",
-  EMPLOYER: "EMPLOYER"
+  JOB_SEEKER: "jobseeker",
+  EMPLOYER: "employer"
 }
 
 export { USER_ENUMS };

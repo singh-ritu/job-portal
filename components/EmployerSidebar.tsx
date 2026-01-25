@@ -10,25 +10,28 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   const router = useRouter();
-  
-    const handleLogout = async () => {
-      try {
-        await fetch(`${API_BASE_URL}/api/auth/logout`, {
-          method: "POST",
-          credentials: "include"
-        });
-  
-        router.replace("/login"); 
-      } catch (error) {
-        console.error("Logout failed", error);
-      }
-    };
-  
+
+  const handleLogout = async () => {
+    try {
+      await fetch(`${API_BASE_URL}/api/auth/logout`, {
+        method: "POST",
+        credentials: "include"
+      });
+
+      router.replace("/login");
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
+
 
   const links = [
     { name: "My Jobs", href: "/employerDashboard", icon: <FaBriefcase /> },
     { name: "Create Job", href: "/employerDashboard/create", icon: <FaPlusCircle /> },
+    { name: "Profile", href: "/employerDashboard/profile", icon: <FaUsers /> },
     { name: "Applicants", href: "/employerDashboard/applicants", icon: <FaUsers /> },
+
+
   ];
 
   return (

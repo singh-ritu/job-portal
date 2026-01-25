@@ -1,25 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function ProfileClient({ user }: any) {
   const router = useRouter();
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
-  const [skills, setSkills] = useState<string[]>(user.user.skills || []);
-  const [resumeUrl, setResumeUrl] = useState<string | null>(user.user.resumeUrl);
+  const [skills, setSkills] = useState<string[]>(user.skills || []);
+  const [resumeUrl, setResumeUrl] = useState<string | null>(user.resumeUrl);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  /* ---------------- Save Profile ---------------- */
+
   const handleSave = async () => {
     try {
       setSaving(true);
       setError(null);
 
-      const res = await fetch(`${API_BASE_URL}/api/users/profile`, {
+      const res = await fetch(`${API_BASE_URL}/api/jobseekers/profile`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ skills, resumeUrl }),
@@ -32,7 +32,7 @@ export default function ProfileClient({ user }: any) {
       }
 
       alert("Profile updated successfully");
-      router.push("/jobDashboard");
+      router.push("/jobseekerDashboard");
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -40,7 +40,7 @@ export default function ProfileClient({ user }: any) {
     }
   };
 
-  /* ---------------- Resume Upload ---------------- */
+
   const handleResumeUpload = async (file: File) => {
     const formData = new FormData();
     formData.append("resume", file);
@@ -69,7 +69,7 @@ export default function ProfileClient({ user }: any) {
     }
   };
 
-  /* ---------------- UI ---------------- */
+
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded shadow">
       <h1 className="text-2xl font-bold mb-6">My Profile</h1>
@@ -78,8 +78,8 @@ export default function ProfileClient({ user }: any) {
 
       {/* Basic Info */}
       <div className="mb-6">
-        <p><strong>Name:</strong> {user.user.name}</p>
-        <p><strong>Email:</strong> {user.user.email}</p>
+        <p><strong>Name:</strong> {user.name}</p>
+        <p><strong>Email:</strong> {user.email}</p>
       </div>
 
       {/* Skills */}
@@ -155,7 +155,7 @@ export default function ProfileClient({ user }: any) {
         )}
       </div>
 
-      {/* Save */}
+
       <button
         onClick={handleSave}
         disabled={saving}

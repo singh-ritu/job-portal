@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Sidebar from "../../components/JobseekerSidebar";
 import { USER_ENUMS } from "../enums/user.enums";
+import { Link, Briefcase } from "lucide-react";
 
 
 function getUserFromToken(token: string | undefined) {
@@ -22,7 +23,7 @@ export default async function JobseekerLayout({ children }: { children: React.Re
 
   const user = getUserFromToken(token);
   if (!user) redirect("/login");
-  if (user.role !== USER_ENUMS.JOB_SEEKER) redirect("/unauthorized");
+  if (user.role !== USER_ENUMS.JOB_SEEKER || !user.role) redirect("/selectRole");
 
   return (
     <div className="min-h-screen flex bg-gray-100">

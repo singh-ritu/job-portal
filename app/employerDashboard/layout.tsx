@@ -31,7 +31,7 @@ export default async function EmployerLayout({
   const user = getUserFromToken(token);
 
   if (!user) redirect("/login");
-  if (user.role !== USER_ENUMS.EMPLOYER) redirect("/unauthorized");
+  if (user.role !== USER_ENUMS.EMPLOYER || !user.role) redirect("/selectRole");
 
   return (
     <div className="min-h-screen flex bg-gray-100">

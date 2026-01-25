@@ -1,9 +1,10 @@
 "use client";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { Job } from "@/types/job";
 import { getPublicJobs } from "@/lib/api";
 import JobCard from "@/components/JobCard";
-import { getLoggedInUserAppliedJobsServer} from "@/lib/api";
+import { getLoggedInUserAppliedJobsServer } from "@/lib/api";
+import { Search, MapPin, LayoutDashboardIcon } from "lucide-react";
 
 
 
@@ -18,7 +19,7 @@ export default function jobsDashboardPage() {
   const [appliedJobs, setAppliedJobs] = useState<string[]>([]);
 
   useEffect(() => {
-     setPage(1);
+    setPage(1);
   }, [keyword, location, jobType]);
 
   const fetchJobs = async () => {
@@ -37,56 +38,99 @@ export default function jobsDashboardPage() {
     } catch (error) {
       console.log(error);
     }
-    finally{
+    finally {
       setLoading(false);
     }
   }
-  useEffect(()=>{
+  useEffect(() => {
     const timeout = setTimeout(() => {
       fetchJobs()
-    },3000)
+    }, 3000)
     return () => clearTimeout(timeout);
-  },[keyword, page, location, jobType]);
+  }, [keyword, page, location, jobType]);
 
-   
 
-    return (
-     <div className="container mx-auto p-4 min-h-screen">
-      <div className="flex w-full justify-between align-items-center mb-6">
-        <h1 className="text-2xl font-bold mb-6">Available Jobs</h1>
+
+  return (
+    <div className="min-h-screen flex flex-col">
+
+      <div className="w-full border items-center border-gray-200 shadow-md p-4 rounded-md">
+        <div className="flex items-center gap-3">
+          <LayoutDashboardIcon className="h-6 w-6 text-[#3456ad]" />
+          <span className="font-semibold">Find Your Next Career Opportunity</span>
+        </div>
       </div>
 
-      <div className="p-8">
+      {/* <div className="p-8">
         <input
-        type="text"
-        placeholder="Search jobs"
-        value={keyword}
-        onChange={(e) => setKeyword(e.target.value)}
-        className="border px-8 py-2 rounded-md mr-4"
-      />
+          type="text"
+          placeholder="Search jobs"
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
+          className="border px-8 py-2 rounded-md mr-4"
+        />
 
-      <input
-        type="text"
-        placeholder="Location"
-        value={location}
-        onChange={(e) => setLocation(e.target.value)}
-         className="border px-8 py-2 rounded-md mr-4"
-      />
+        <input
+          type="text"
+          placeholder="Location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          className="border px-8 py-2 rounded-md mr-4"
+        />
 
-      <select
-        value={jobType}
-        onChange={(e) => setJobType(e.target.value)}
-        className="px-8 py-2 rounded-md"
-      >
-        <option value="">All Types</option>
-        <option value="Full-time">Full Time</option>
-        <option value="Part-time">Part Time</option>
-        <option value="Internship">Internship</option>
-        <option value="Contract">Contract</option>
-      </select>
-      </div>
+        <select
+          value={jobType}
+          onChange={(e) => setJobType(e.target.value)}
+          className="px-8 py-2 rounded-md"
+        >
+          <option value="">All Types</option>
+          <option value="Full-time">Full Time</option>
+          <option value="Part-time">Part Time</option>
+          <option value="Internship">Internship</option>
+          <option value="Contract">Contract</option>
+        </select>
+      </div> */}
 
-      
+      <section className="relative my-8 z-10">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto max-w-4xl bg-card rounded-lg shadow-md border border-gray-200 p-6">
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="flex-1 flex items-center gap-2 border border-gray-200 shadow-md rounded-md px-4 py-2">
+                <Search className="h-5 w-5 text-(--muted-foreground)" />
+                <input
+                  type="text"
+                  placeholder="search jobs ..."
+                  value={keyword}
+                  onChange={(e) => setKeyword(e.target.value)}
+                  className="border-0 p-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                />
+              </div>
+              <div className="flex-1 flex items-center gap-2 border border-gray-200 shadow-md rounded-md px-4 py-2">
+                <MapPin className="h-5 w-5 text-(--muted-foreground)" />
+                <input
+                  type="text"
+                  placeholder="Location..."
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  className="border-0 p-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                />
+              </div>
+              <select
+                value={jobType}
+                onChange={(e) => setJobType(e.target.value)}
+                className="text-sm font-medium px-4 py-2 rounded bg-[#3456ad] hover:bg-[#5779ce] text-white transition-colors cursor-pointer">
+                <option value="">All Types</option>
+                <option value="Full-time">Full Time</option>
+                <option value="Part-time">Part Time</option>
+                <option value="Internship">Internship</option>
+                <option value="Contract">Contract</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
       {loading ? (
         <p>Loading jobs...</p>
       ) : jobs.length === 0 ? (
@@ -94,16 +138,16 @@ export default function jobsDashboardPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {jobs.map((job) => (
-            <JobCard key={job._id} job={job} appliedJobIds={appliedJobs}/>
+            <JobCard key={job._id} job={job} appliedJobIds={appliedJobs} />
           ))}
         </div>
       )}
 
-               <div className="flex justify-center items-center gap-4 mt-8">
+      <div className="flex justify-center items-center gap-4 mt-8">
         <button
           disabled={page === 1}
           onClick={() => setPage((p) => p - 1)}
-           className="bg-blue-600 px-8 text-white py-2 rounded-md font-semibold hover:bg-blue-700 transition"
+          className="bg-[#3456ad] px-8 text-white py-2 rounded-md font-semibold hover:bg-[#5671b4] transition"
         >
           Previous
         </button>
@@ -115,11 +159,11 @@ export default function jobsDashboardPage() {
         <button
           disabled={page === totalPages}
           onClick={() => setPage((p) => p + 1)}
-          className="bg-blue-600 px-8 text-white py-2 rounded-md font-semibold hover:bg-blue-700 transition"
+          className="bg-[#3456ad] px-8 text-white py-2 rounded-md font-semibold hover:bg-[#5671b4]   transition"
         >
           Next
         </button>
       </div>
     </div>
-    );
+  );
 }

@@ -1,18 +1,18 @@
-import { getLoggedInUserServer } from "@/lib/api.server";
+import { getLoggedInJobSeekerServer } from "@/lib/api.server";
 import ProfileClient from "./profileClient";
-import { log } from "console";
+
 
 export default async function ProfilePage() {
-  const user = await getLoggedInUserServer();
-  console.log(user);
-  
-  if (!user) {
+  const jobSeeker = await getLoggedInJobSeekerServer();
+  console.log(jobSeeker);
+
+  if (!jobSeeker) {
     return <p>Unauthorized</p>;
   }
 
-  return(
+  return (
     <div className="container mx-auto p-4 mt-20">
-       <ProfileClient user={user} />
+      <ProfileClient user={jobSeeker} />
     </div>
   );
 }

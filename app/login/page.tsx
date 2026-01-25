@@ -9,7 +9,11 @@ import { useRouter } from "next/navigation"
 import { USER_ENUMS } from "../enums/user.enums";
 
 export default function LoginPage() {
+
   const router = useRouter()
+
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
+
   const [form, setForm] = useState({
     email: "",
     password: ""
@@ -25,6 +29,7 @@ export default function LoginPage() {
       alert(res.message)
     }
     console.log("response:", res)
+
 
     if (res.user.role === USER_ENUMS.JOB_SEEKER) {
       router.push("/jobseekerDashboard")
@@ -50,7 +55,7 @@ export default function LoginPage() {
         <Card className="w-full max-w-md border border-gray-200 shadow-md ">
           <CardHeader className="space-y-1">
             <div className="flex items-center gap-2 mb-2">
-              <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link href="/" className="text-(--muted-foreground) hover:text-foreground transition-colors">
                 <ArrowLeft className="h-4 w-4" />
               </Link>
             </div>
@@ -63,7 +68,7 @@ export default function LoginPage() {
               <div className="space-y-1.5">
                 <label
                   htmlFor="email"
-                  className="text-sm font-medium text-foreground"
+                  className="text-sm font-medium"
                 >
                   Email
                 </label>
@@ -74,7 +79,7 @@ export default function LoginPage() {
                   required
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   className="w-full rounded-md border border-gray-200 bg-background px-3 py-2 text-sm
-                 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                 focus:outline-none focus:ring-2 focus:ring-[#3456ad]"
                 />
               </div>
 
@@ -83,7 +88,7 @@ export default function LoginPage() {
                 <div className="flex items-center justify-between">
                   <label
                     htmlFor="password"
-                    className="text-sm font-medium text-foreground"
+                    className="text-sm font-medium"
                   >
                     Password
                   </label>
@@ -101,7 +106,7 @@ export default function LoginPage() {
                   required
                   onChange={(e) => setForm({ ...form, password: e.target.value })}
                   className="w-full rounded-md border border-gray-200 bg-background px-3 py-2 text-sm
-                 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                focus:outline-none focus:ring-2 focus:ring-[#3456ad]"
                 />
               </div>
 
@@ -126,11 +131,12 @@ export default function LoginPage() {
             </div>
 
 
-            {/* <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-3">
               <button
                 className="flex items-center justify-center gap-2 rounded-md border border-gray-200
                bg-background px-3 py-2 text-sm font-medium
                hover:bg-accent transition"
+                onClick={() => window.location.href = `${API_BASE_URL}/api/auth/google`}
               >
                 <svg className="h-4 w-4" viewBox="0 0 24 24">
                   <path
