@@ -10,7 +10,7 @@ export default async function ProfilePage() {
   }
 
   return (
-    <div className="container mx-auto p-4 mt-20">
+    <div>
       <EmployerProfileClient user={employer} />
     </div>
   );

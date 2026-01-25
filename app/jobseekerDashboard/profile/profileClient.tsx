@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { UserCircle, Mail } from "lucide-react";
 
 export default function ProfileClient({ user }: any) {
   const router = useRouter();
@@ -71,98 +72,108 @@ export default function ProfileClient({ user }: any) {
 
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded shadow">
-      <h1 className="text-2xl font-bold mb-6">My Profile</h1>
+    <div className="min-h-screen flex flex-col">
 
-      {error && <p className="text-red-600 mb-4">{error}</p>}
-
-      {/* Basic Info */}
-      <div className="mb-6">
-        <p><strong>Name:</strong> {user.name}</p>
-        <p><strong>Email:</strong> {user.email}</p>
-      </div>
-
-      {/* Skills */}
-      <div className="mb-6">
-        <label className="font-semibold block mb-2">Skills</label>
-
-        <input
-          type="text"
-          placeholder="Type skill and press Enter"
-          className="border px-3 py-2 w-full rounded"
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && e.currentTarget.value.trim()) {
-              e.preventDefault();
-              setSkills([...skills, e.currentTarget.value.trim()]);
-              e.currentTarget.value = "";
-            }
-          }}
-        />
-
-        <div className="flex flex-wrap gap-2 mt-3">
-          {skills.map((skill, i) => (
-            <span
-              key={i}
-              className="bg-gray-200 px-3 py-1 rounded flex items-center gap-2"
-            >
-              {skill}
-              <button
-                onClick={() =>
-                  setSkills(skills.filter((_, index) => index !== i))
-                }
-                className="text-red-500"
-              >
-                ×
-              </button>
-            </span>
-          ))}
+      <div className="w-full border items-center border-gray-200  shadow-md p-4 rounded-md bg-white">
+        <div className="flex items-center gap-3">
+          <UserCircle className="h-6 w-6 text-[#3456ad]" />
+          <span className="font-semibold">Keep Your Profile Update</span>
         </div>
       </div>
 
-      {/* Resume */}
-      <div className="mb-6">
-        <label className="font-semibold block mb-2">Resume</label>
+      <div className="container mx-auto w-1/2 p-8 rounded-xl border mt-8 border-gray-200 shadow-md bg-white">
 
-        {resumeUrl ? (
-          <div className="flex items-center gap-4">
-            <a
-              href={resumeUrl}
-              target="_blank"
-              className="text-blue-600 underline"
+        {error && <p className="text-red-600 mb-4">{error}</p>}
+
+        <div className="mb-6 flex flex-col cursor-pointer">
+          <span className="text-2xl font-bold text-[#3456ad]">{user.name}</span>
+          <span className="text-sm flex items-center font-semibold text-(--muted-foreground) hover:text-gray-500 hover:underline">
+            <Mail size={16} />
+            {user.email}</span>
+        </div>
+
+        <div className="space-y-5 bg-white p-6 rounded-lg border border-gray-200 shadow-md">
+
+          <div className="space-y-1.5">
+            <label
+              htmlFor="skills"
+              className="text-sm font-semibold"
             >
-              View Resume
-            </a>
+              Skills
+            </label>
             <input
-              type="file"
-              accept=".pdf,.doc,.docx"
-              onChange={(e) =>
-                e.target.files && handleResumeUpload(e.target.files[0])
-              }
+              type="text"
+              placeholder="Type skill and press Enter"
+              className="w-full rounded-md border border-gray-200 bg-background px-3 py-2 text-sm
+                 focus:outline-none focus:ring-2 focus:ring-[#3456ad]"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && e.currentTarget.value.trim()) {
+                  e.preventDefault();
+                  setSkills([...skills, e.currentTarget.value.trim()]);
+                  e.currentTarget.value = "";
+                }
+              }}
             />
           </div>
-        ) : (
-          <input
-            type="file"
-            accept=".pdf,.doc,.docx"
-            onChange={(e) =>
-              e.target.files && handleResumeUpload(e.target.files[0])
-            }
-          />
-        )}
 
-        {uploading && (
-          <p className="text-sm text-gray-500 mt-2">Uploading resume...</p>
-        )}
+
+          <div className="flex flex-wrap gap-2 mt-3">
+            {skills.map((skill, i) => (
+              <span
+                key={i}
+                className="bg-[#4d68ae] text-white px-3 py-1 rounded flex items-center gap-2"
+              >
+                {skill}
+                <button
+                  onClick={() =>
+                    setSkills(skills.filter((_, index) => index !== i))
+                  }
+                  className="text-white"
+                >
+                  ×
+                </button>
+              </span>
+            ))}
+          </div>
+
+          <div className="mb-6">
+            <label className="font-semibold text-sm block">Resume</label>
+
+            {resumeUrl ? (
+              <div className="flex items-center gap-4">
+                <a
+                  href={resumeUrl}
+                  target="_blank"
+                  className="text-[#556fb0] hover:text-[#3456ad] underline"
+                >
+                  View Resume
+                </a>
+              </div>
+            ) : (
+              <input
+                type="file"
+                accept=".pdf,.doc,.docx"
+                onChange={(e) =>
+                  e.target.files && handleResumeUpload(e.target.files[0])
+                }
+              />
+            )}
+
+            {uploading && (
+              <p className="text-sm text-(--muted-foreground) mt-2">Uploading resume...</p>
+            )}
+          </div>
+
+          <button
+            onClick={handleSave}
+            disabled={saving}
+            className="bg-[#3456ad] text-white px-6 py-2 rounded hover:bg-[#556fb0] disabled:opacity-50"
+          >
+            {saving ? "Saving..." : "Save Profile"}
+          </button>
+        </div>
       </div>
-
-
-      <button
-        onClick={handleSave}
-        disabled={saving}
-        className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
-      >
-        {saving ? "Saving..." : "Save Profile"}
-      </button>
     </div>
+
   );
 }

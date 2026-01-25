@@ -9,7 +9,7 @@ interface JobCardProps {
 export default function JobCard({ job, appliedJobIds }: JobCardProps) {
   return (
 
-    <div className="w-full max-w-md border rounded-2xl p-6 border-gray-200 shadow-md">
+    <div className="w-full max-w-md border rounded-2xl p-6 border-gray-200 shadow-md bg-white">
 
       <h2 className="text-lg font-semibold">{job.title}</h2>
 
@@ -22,15 +22,17 @@ export default function JobCard({ job, appliedJobIds }: JobCardProps) {
       </p>
 
       <div className="flex justify-between items-center mt-3">
-        <span className="text-xs bg-gray-200 px-2 py-1 rounded">
+        {job.salary && (
+          <span className="text-xs text-(--muted-foreground) bg-gray-200 px-2 py-1 rounded">
+            salary: {job.salary}
+          </span>
+        )}
+
+        <span className="text-xs text-(--muted-foreground) border border-gray-200 shadow-md px-2 py-1 rounded">
           {job.jobType}
         </span>
 
-        {job.salary && (
-          <span className="text-xs text-gray-600">
-            {job.salary}
-          </span>
-        )}
+
       </div>
 
       <Link href={`/jobseekerDashboard/${job._id}`}>

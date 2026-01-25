@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Mail, UserCircle } from "lucide-react";
 
 export default function EmployerProfileClient({ user }: any) {
 
@@ -10,7 +11,7 @@ export default function EmployerProfileClient({ user }: any) {
   const router = useRouter()
   const [profile, setProfile] = useState({
     companyName: "",
-    experienceLevel: "Mid",
+    experienceLevel: "",
     aboutCompany: "",
   });
 
@@ -58,70 +59,84 @@ export default function EmployerProfileClient({ user }: any) {
   }
 
   return (
-    <div className="p-6 max-w-3xl">
-      <h1 className="text-2xl font-semibold mb-6">
-        Employer Profile
-      </h1>
-      <div className="mb-6">
-        <p><strong>Name:</strong> {user.name}</p>
-        <p><strong>Email:</strong> {user.email}</p>
+    <div className="min-h-screen flex flex-col">
+
+      <div className="w-full border items-center border-gray-200 shadow-md p-4 rounded-md bg-white">
+        <div className="flex items-center gap-3">
+          <UserCircle className="h-6 w-6 text-[#3456ad]" />
+          <span className="font-semibold">Keep Your Profile Updated</span>
+        </div>
       </div>
-      <div className="space-y-5 bg-white p-6 rounded-lg border">
-        {/* Company Name */}
-        <div>
-          <label className="block text-sm font-semibold mb-1">
-            Company Name
-          </label>
-          <input
-            type="text"
-            name="companyName"
-            value={profile.companyName}
-            onChange={handleChange}
-            className="w-full border rounded px-3 py-2"
-          />
+
+      <div className="container mx-auto w-1/2 p-8 rounded-xl border mt-8 border-gray-200 shadow-md bg-white">
+
+        <div className="mb-6 flex flex-col cursor-pointer">
+          <span className="text-2xl font-bold text-[#3456ad]">{user.name}</span>
+          <span className="text-sm flex items-center font-semibold text-(--muted-foreground) hover:text-gray-500 hover:underline">
+            <Mail size={16} />
+            {user.email}</span>
         </div>
 
-        {/* Experience Level */}
-        <div>
-          <label className="block text-sm font-semibold mb-1">
-            Hiring Level
-          </label>
-          <select
-            name="experienceLevel"
-            value={profile.experienceLevel}
-            onChange={handleChange}
-            className="w-full border rounded px-3 py-2"
+        <div className="space-y-5 bg-white p-6 rounded-lg border border-gray-200 shadow-md">
+
+          <div className="space-y-1.5">
+            <label className="block text-sm font-semibold mb-1">
+              Company Name
+            </label>
+            <input
+              type="text"
+              name="companyName"
+              value={profile.companyName}
+              placeholder="e.g. TechNova Solutions Pvt. Ltd."
+              onChange={handleChange}
+              className="w-full rounded-md border border-gray-200 shadow-sm bg-background px-3 py-2 text-sm
+                 focus:outline-none focus:ring-2 focus:ring-[#3456ad]"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold mb-1">
+              Hiring Level
+            </label>
+            <select
+              name="experienceLevel"
+              value={profile.experienceLevel}
+              onChange={handleChange}
+              className="w-full rounded-md border border-gray-200 shadow-sm bg-background px-3 py-2 text-sm
+                 focus:outline-none focus:ring-2 focus:ring-[#3456ad]"
+            >
+              <option value="">Select Option</option>
+              <option>Entry</option>
+              <option>Mid</option>
+              <option>Senior</option>
+              <option>Director</option>
+              <option>Executive</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold mb-1">
+              About Company
+            </label>
+            <textarea
+              name="aboutCompany"
+              value={profile.aboutCompany || ""}
+              placeholder="Write a description about a company"
+              onChange={handleChange}
+              rows={4}
+              className="w-full rounded-md border border-gray-200 bg-background px-3 py-2 text-sm
+                focus:outline-none focus:ring-2 focus:ring-[#3456ad]"
+            />
+          </div>
+
+          <button
+            onClick={handleSave}
+            disabled={saving}
+            className="bg-[#3456ad] text-white px-5 py-2 rounded hover:bg-[#5671b4] disabled:opacity-50"
           >
-            <option value="Entry">Entry</option>
-            <option value="Mid">Mid</option>
-            <option value="Senior">Senior</option>
-            <option value="Director">Director</option>
-            <option value="Executive">Executive</option>
-          </select>
+            {saving ? "Saving..." : "Save Profile"}
+          </button>
         </div>
-
-        {/* About Company */}
-        <div>
-          <label className="block text-sm font-semibold mb-1">
-            About Company
-          </label>
-          <textarea
-            name="aboutCompany"
-            value={profile.aboutCompany || ""}
-            onChange={handleChange}
-            rows={4}
-            className="w-full border rounded px-3 py-2"
-          />
-        </div>
-
-        {/* Save */}
-        <button
-          onClick={handleSave}
-          disabled={saving}
-          className="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
-        >
-          {saving ? "Saving..." : "Save Profile"}
-        </button>
       </div>
     </div>
   );

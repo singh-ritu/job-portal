@@ -24,7 +24,7 @@ export default function ApplyPanel({
   const [error, setError] = useState<string | null>(null);
 
 
-  /* ---------------- Resume Upload ---------------- */
+
   const handleResumeUpload = async (file: File) => {
     const formData = new FormData();
     formData.append("resume", file);
@@ -40,16 +40,16 @@ export default function ApplyPanel({
       });
 
       if (!res.ok) {
-          const err = await res.json();
-          throw new Error(err.message || "Resume upload failed");
-        }
+        const err = await res.json();
+        throw new Error(err.message || "Resume upload failed");
+      }
 
-        const data = await res.json();
-        console.log("resumeUrl", data.resumeUrl);
-        setResumeUrl(data.resumeUrl);
-        console.log("resumeUrl", resumeUrl);
+      const data = await res.json();
+      console.log("resumeUrl", data.resumeUrl);
+      setResumeUrl(data.resumeUrl);
+      console.log("resumeUrl", resumeUrl);
 
-         return data.resumeUrl; 
+      return data.resumeUrl;
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -57,7 +57,7 @@ export default function ApplyPanel({
     }
   };
 
-  /* ---------------- Apply Job ---------------- */
+
   const handleApply = async () => {
     if (!resumeUrl) return;
 
@@ -79,7 +79,7 @@ export default function ApplyPanel({
         const err = await res.json();
         throw new Error(err.message || "Failed to apply");
       }
-      
+
 
       onSuccess?.();
     } catch (err: any) {
@@ -90,23 +90,23 @@ export default function ApplyPanel({
   };
 
   return (
-    <div className="mt-6 border rounded-lg p-5 bg-gray-50">
-      <h3 className="text-lg font-semibold mb-4">Apply for this job</h3>
+    <div className="mt-6 border border-gray-200 shadow-md rounded-lg p-5 bg-gray-50 cursor-pointer">
+      <h3 className="text-md font-semibold mb-4 text-[#3456ad]">Apply for this job</h3>
 
-      {/* Error */}
+
       {error && <p className="text-red-600 mb-3">{error}</p>}
 
-      {/* Existing Resume */}
+
       {existingResumeUrl && !resumeUrl && (
         <button
           onClick={() => setResumeUrl(existingResumeUrl)}
-          className="mb-4 text-blue-600 underline"
+          className="mb-4 text-[#3456ad] underline"
         >
           Use existing resume
         </button>
       )}
 
-      {/* Resume Upload */}
+
       {!resumeUrl && (
         <div className="mb-4">
           <input
@@ -120,25 +120,24 @@ export default function ApplyPanel({
             }}
           />
           {uploading && (
-            <p className="text-sm mt-2 text-gray-600">Uploading resume...</p>
+            <p className="text-sm mt-2 text-(--muted-foreground)">Uploading resume...</p>
           )}
         </div>
       )}
 
-      {/* Resume Ready */}
+
       {resumeUrl && (
-        <p className="text-green-600 mb-4">✔ Resume ready</p>
+        <p className="text-[#36ad34] mb-4">✔ Resume ready</p>
       )}
 
-      {/* Submit Button */}
+
       <button
         onClick={handleApply}
         disabled={!resumeUrl || submitting}
-        className={`px-4 py-2 rounded text-white ${
-          !resumeUrl || submitting
-            ? "bg-gray-400 cursor-not-allowed"
-            : "bg-green-600 hover:bg-green-700"
-        }`}
+        className={`px-4 py-2 rounded text-white cursor-pointer ${!resumeUrl || submitting
+          ? "bg-(--muted-foreground) cursor-not-allowed"
+          : "bg-[#36ad34] hover:bg-[#3ea33d]"
+          }`}
       >
         {submitting ? "Submitting..." : "Submit Application"}
       </button>

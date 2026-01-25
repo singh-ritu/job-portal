@@ -54,46 +54,16 @@ export default function jobsDashboardPage() {
   return (
     <div className="min-h-screen flex flex-col">
 
-      <div className="w-full border items-center border-gray-200 shadow-md p-4 rounded-md">
+      <div className="w-full border items-center border-gray-200 shadow-md p-4 rounded-md bg-white">
         <div className="flex items-center gap-3">
           <LayoutDashboardIcon className="h-6 w-6 text-[#3456ad]" />
           <span className="font-semibold">Find Your Next Career Opportunity</span>
         </div>
       </div>
 
-      {/* <div className="p-8">
-        <input
-          type="text"
-          placeholder="Search jobs"
-          value={keyword}
-          onChange={(e) => setKeyword(e.target.value)}
-          className="border px-8 py-2 rounded-md mr-4"
-        />
-
-        <input
-          type="text"
-          placeholder="Location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          className="border px-8 py-2 rounded-md mr-4"
-        />
-
-        <select
-          value={jobType}
-          onChange={(e) => setJobType(e.target.value)}
-          className="px-8 py-2 rounded-md"
-        >
-          <option value="">All Types</option>
-          <option value="Full-time">Full Time</option>
-          <option value="Part-time">Part Time</option>
-          <option value="Internship">Internship</option>
-          <option value="Contract">Contract</option>
-        </select>
-      </div> */}
-
       <section className="relative my-8 z-10">
         <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-4xl bg-card rounded-lg shadow-md border border-gray-200 p-6">
+          <div className="mx-auto max-w-4xl bg-card rounded-lg shadow-md border border-gray-200 p-6 bg-white">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1 flex items-center gap-2 border border-gray-200 shadow-md rounded-md px-4 py-2">
                 <Search className="h-5 w-5 text-(--muted-foreground)" />
