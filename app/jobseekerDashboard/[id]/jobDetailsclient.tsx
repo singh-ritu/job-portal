@@ -14,25 +14,25 @@ export default function JobDetailsClient({
 
   return (
     <div className="max-w-3xl mx-auto p-6">
-      {/* Job Info */}
-      <h1 className="text-2xl font-bold">{job.title}</h1>
-      <p className="text-gray-600">{job.companyName}</p>
-      <p className="mt-4">{job.description}</p>
 
-      {/* Apply Section */}
-      {user?.user.role === USER_ENUMS.JOB_SEEKER && (
+      <h1 className="text-2xl font-semibold">{job.title}</h1>
+      <p className="text-(--muted-foreground)">{job.company}</p>
+      <p className="mt-4 text-sm text-(--muted-foreground)">{job.description}</p>
+
+
+      {user?.role === USER_ENUMS.JOB_SEEKER && (
         <>
           {!applied ? (
             <button
               onClick={() => setShowApplyPanel(true)}
-              className="mt-6 px-4 py-2 bg-blue-600 text-white rounded"
+              className="mt-6 px-4 py-2 bg-[#3456ad] text-white rounded hover:bg-[#506cb4] cursor-pointer"
             >
               Apply for this Job
             </button>
           ) : (
             <button
               disabled
-              className="mt-6 px-4 py-2 bg-gray-400 text-white rounded"
+              className="mt-6 px-4 py-2 bg-(--muted-foreground) text-white rounded"
             >
               Applied ✔
             </button>
@@ -40,7 +40,6 @@ export default function JobDetailsClient({
         </>
       )}
 
-      {/* Apply Panel */}
       {showApplyPanel && !applied && (
         <ApplyPanel
           jobId={job._id}

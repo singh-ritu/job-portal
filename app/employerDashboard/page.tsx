@@ -60,11 +60,11 @@ export default function EmployerDashboardPage() {
   };
 
   if (loading) {
-    return <p className="text-gray-600">Loading jobs...</p>;
+    return <p className="text-(--muted-foreground)">Loading jobs...</p>;
   }
 
   if (error) {
-    return <p className="text-red-500">{error}</p>;
+    return <p className="text-[#a44242]">{error}</p>;
   }
 
   return (

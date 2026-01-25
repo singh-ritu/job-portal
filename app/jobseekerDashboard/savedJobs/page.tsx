@@ -1,27 +1,27 @@
-"use client"; // Client component if we plan to fetch later
+"use client";
 
 import { FaBookmark } from "react-icons/fa";
 
 export default function SavedJobsPage() {
-  // For now, no jobs saved
-  const savedJobs: any[] = []; // Replace with API data when available
+
+  const savedJobs: any[] = [];
 
   return (
-    <div className="flex flex-col items-center justify-center h-full text-center py-20">
+    <div className="flex flex-col items-center justify-center h-full rounded-lg border-dashed border border-gray-500 shadow-md bg-white">
       {savedJobs.length === 0 ? (
         <div className="flex flex-col items-center gap-4">
           <div className="text-6xl text-gray-300">
             <FaBookmark />
           </div>
-          <h1 className="text-2xl font-semibold text-gray-700">
+          <h1 className="text-2xl font-semibold">
             No saved jobs yet
           </h1>
-          <p className="text-gray-500 max-w-md">
+          <p className="text-(--muted-foreground) text-sm max-w-md">
             Any jobs you save will appear here. Browse jobs and click the "Save" button to keep track of opportunities you like.
           </p>
           <a
             href="/jobseekerDashboard"
-            className="mt-4 inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+            className="mt-4 inline-block bg-[#3456ad] text-white px-6 py-2 rounded-lg hover:bg-[#4663ac] transition"
           >
             Browse Jobs
           </a>

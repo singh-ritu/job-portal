@@ -80,65 +80,65 @@ export default function EditJobPage() {
       <h1 className="text-2xl font-bold mb-4">Edit Job</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                <label className="block font-semibold text-sm font-medium text-gray-700">
-                Job Title
-                </label>
-                <input
-                name="title"
-                value={form.title}
-                onChange={handleChange}
-                className="mt-1 w-full border rounded px-3 py-2"
-                required
-                />
-            </div>
+        <div>
+          <label className="block font-semibold text-sm  text-gray-700">
+            Job Title
+          </label>
+          <input
+            name="title"
+            value={form.title}
+            onChange={handleChange}
+            className="mt-1 w-full border rounded px-3 py-2"
+            required
+          />
+        </div>
 
-            <div>
-                <label className="block font-semibold text-sm font-medium text-gray-700">
-                Company
-                </label>
-                <input
-                name="company"
-                value={form.company}
-                onChange={handleChange}
-                className="mt-1 w-full border rounded px-3 py-2"
-                required
-                />
-            </div>
+        <div>
+          <label className="block font-semibold text-sm  text-gray-700">
+            Company
+          </label>
+          <input
+            name="company"
+            value={form.company}
+            onChange={handleChange}
+            className="mt-1 w-full border rounded px-3 py-2"
+            required
+          />
+        </div>
 
-            <div>
-                <label className="block font-semibold text-sm font-medium text-gray-700">
-                Location
-                </label>
-                <input
-                name="location"
-                value={form.location}
-                onChange={handleChange}
-                className="mt-1 w-full border rounded px-3 py-2"
-                required
-                />
-            </div>
+        <div>
+          <label className="block font-semibold text-sm  text-gray-700">
+            Location
+          </label>
+          <input
+            name="location"
+            value={form.location}
+            onChange={handleChange}
+            className="mt-1 w-full border rounded px-3 py-2"
+            required
+          />
+        </div>
 
-            <div>
-                <label className="block font-semibold text-sm font-medium text-gray-700">
-                Job Description
-                </label>
-                <textarea
-                name="description"
-                value={form.description}
-                onChange={handleChange}
-                rows={4}
-                className="mt-1 w-full border rounded px-3 py-2"
-                required
-                />
-            </div>
-            <button
-                type="submit"
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                >
-                Update Job
-             </button>
-        </form> 
+        <div>
+          <label className="block font-semibold text-sm  text-gray-700">
+            Job Description
+          </label>
+          <textarea
+            name="description"
+            value={form.description}
+            onChange={handleChange}
+            rows={4}
+            className="mt-1 w-full border rounded px-3 py-2"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Update Job
+        </button>
+      </form>
     </div>
   );
 }

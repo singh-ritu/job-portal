@@ -1,4 +1,4 @@
-import { getJobDetails} from "@/lib/api";
+import { getJobDetails } from "@/lib/api";
 import { getLoggedInUserServer, getLoggedInUserApplicationsServer } from "@/lib/api.server"
 import Link from "next/link";
 import JobDetailsClient from "./jobDetailsclient"
@@ -26,65 +26,71 @@ export default async function JobDetailsPage({ params }: Props) {
     );
   }
 
-    const job = data.job;
-    console.log("applications", applications);
-    const alreadyApplied = applications.some(
-      (app:any) => app.job._id.toString() === job._id.toString()
-      );
+  const job = data.job;
+  console.log("applications", applications);
+  const alreadyApplied = applications.some(
+    (app: any) => app.job._id.toString() === job._id.toString()
+  );
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
-    
+    <div className="min-h-screen mt-8 flex flex-col">
+
       <Link
-        href="/jobDashboard"
-        className="mb-6 inline-block text-sm font-medium text-blue-600 hover:underline"
+        href="/jobseekerDashboard"
+        className="mb-6 inline-block text-sm font-medium hover:text-(--mute-foreground) text-[#3456ad] hover:underline"
       >
         ← Back to jobs
       </Link>
 
-    
-      <div className="rounded-lg bg-white p-8 shadow-sm border border-gray-200">
-       
-        <h1 className="text-3xl font-semibold text-gray-900 mb-3">
+
+      <div className="rounded-lg bg-white p-8 border border-gray-200 shadow-md">
+
+        <h1 className="text-2xl font-semibold mb-3">
           {job.title}
         </h1>
 
-       
+
         <div className="flex flex-wrap gap-6 text-sm text-gray-600 mb-6">
           <span>
             <strong className="text-gray-800">Company:</strong>{" "}
-            {job.company}
+            <span className="text-xs bg-gray-200 px-2 py-1 rounded">
+              {job.company}
+            </span>
           </span>
           <span>
             <strong className="text-gray-800">Location:</strong>{" "}
-            {job.location}
+            <span className="text-xs bg-gray-200 px-2 py-1 rounded">
+              {job.location}
+            </span>
           </span>
           <span>
             <strong className="text-gray-800">Type:</strong>{" "}
-            {job.jobType}
+            <span className="text-xs bg-gray-200 px-2 py-1 rounded">
+              {job.jobType}
+            </span>
           </span>
         </div>
 
-      
+
         <div className="mb-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">
             Job Description
-          </h2>
-          <p className="text-gray-700 leading-relaxed">
+          </h3>
+          <span className="text-(--muted-foreground) text-sm leading-relaxed">
             {job.description}
-          </p>
+          </span>
         </div>
         {/* Footer */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-t pt-6">
-          <span className="text-sm text-gray-500">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4 border-t border-gray-200 pt-6">
+          <span className="text-sm text-(--muted-foreground)">
             Posted on{" "}
             {new Date(job.createdAt).toLocaleDateString()}
           </span>
           {
             job.isActive ? (
-                <JobDetailsClient job={job} user={user} applications={applications} alreadyApplied={alreadyApplied}/>
-            ):(
-              <span className="text-red-600 font-semibold">
+              <JobDetailsClient job={job} user={user} applications={applications} alreadyApplied={alreadyApplied} />
+            ) : (
+              <span className="text-[#a44242] font-semibold">
                 This job posting is no longer active.
               </span>
             )
