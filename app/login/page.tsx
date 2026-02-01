@@ -113,7 +113,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 className="w-full rounded-md bg-[#3456ad] px-4 py-2.5 text-sm font-medium
-               text-white
+               text-white cursor-pointer
                hover:bg-primary/90
                focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
                transition"
@@ -131,10 +131,10 @@ export default function LoginPage() {
             </div>
 
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid">
               <button
                 className="flex items-center justify-center gap-2 rounded-md border border-gray-200
-               bg-background px-3 py-2 text-sm font-medium
+               bg-background px-3 py-2 text-sm font-medium cursor-pointer
                hover:bg-accent transition"
                 onClick={() => window.location.href = `${API_BASE_URL}/api/auth/google`}
               >
@@ -157,17 +157,6 @@ export default function LoginPage() {
                   />
                 </svg>
                 Google
-              </button>
-
-              <button
-                className="flex items-center justify-center gap-2 rounded-md border border-gray-200
-               bg-background px-3 py-2 text-sm font-medium
-               hover:bg-accent transition"
-              >
-                <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387..." />
-                </svg>
-                GitHub
               </button>
             </div>
 

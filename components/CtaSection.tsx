@@ -12,10 +12,10 @@ export function CTASection() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="text-sm font-medium px-4 py-2 rounded text-black hover:bg-[#a4b2d7] bg-white transition-colors cursor-pointer">
-              <Link href="/jobs">Browse Jobs</Link>
+              <Link href="/register">Browse Jobs</Link>
             </button>
             <button className="text-sm font-medium px-4 py-2 rounded border border-white bg-[#3456ad] hover:bg-white hover:text-[#3456ad] text-white transition-colors cursor-pointer">
-              <Link href="/post-job">Post a Job</Link>
+              <Link href="/register">Post a Job</Link>
             </button>
           </div>
         </div>

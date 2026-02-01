@@ -69,7 +69,7 @@ export default function EmployerDashboardPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <div className="w-full border items-center border-gray-200 shadow-md p-4 rounded-md">
+      <div className="w-full border items-center border-gray-200 shadow-md p-4 rounded-md bg-white">
         <div className="flex items-center gap-3">
           <LayoutDashboardIcon className="h-6 w-6 text-[#3456ad]" />
           <span className="font-semibold">Manage Your Hiring, All in One Place</span>

@@ -2,13 +2,11 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { FaBriefcase, FaPlusCircle, FaUsers } from "react-icons/fa";
 import {
   Menu,
   Briefcase,
   FileText,
   UserCircle,
-  Users,
   LogOut,
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
@@ -60,11 +58,6 @@ export default function Sidebar() {
       name: "Profile",
       href: "/employerDashboard/profile",
       icon: UserCircle,
-    },
-    {
-      name: "Applicants",
-      href: "/employerDashboard/applicants",
-      icon: Users,
     },
   ];
 

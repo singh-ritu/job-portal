@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { MapPin, Clock, DollarSign } from "lucide-react"
+import Link from "next/link"
 
 export function FeaturedJobsSection() {
   const jobs = [
@@ -103,7 +104,7 @@ export function FeaturedJobsSection() {
 
         <div className="text-center">
           <button className="text-sm font-medium px-4 py-2 rounded-md bg-[#3456ad] border border-gray-200 shadow-md hover:bg-[#5779ce] text-white transition-colors cursor-pointer">
-            View All Jobs
+            <Link href="/register">View All Jobs</Link>
           </button>
         </div>
       </div>

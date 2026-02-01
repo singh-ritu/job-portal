@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 export default function SelectRole() {
@@ -7,7 +7,7 @@ export default function SelectRole() {
   const router = useRouter()
 
   const chooseRole = async (role: "employer" | "jobseeker") => {
-    console.log("clicked")
+
     const res = await fetch(`${API_BASE_URL}/api/auth/setRole`, {
       method: "POST",
       credentials: "include", // 🔑 cookie required
@@ -18,7 +18,16 @@ export default function SelectRole() {
       throw new Error("Failed to set Role")
     }
     const data = await res.json()
-    router.push(data.redirectTo)
+
+    console.log("response:", data)
+
+    if (data.role === "jobseeker") {
+      console.log("redirect to jobseeker")
+      redirect(data.redirectTo)
+    } else if (data.role === "employer") {
+      redirect(data.redirectTo)
+    }
+
   };
 
   return (
