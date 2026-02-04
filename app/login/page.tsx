@@ -1,5 +1,5 @@
 "use client";
-import type { Metadata } from "next"
+
 import Link from "next/link"
 import { Briefcase, ArrowLeft } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -32,11 +32,13 @@ export default function LoginPage() {
 
 
     if (res.user.role === USER_ENUMS.JOB_SEEKER) {
-      router.push("/jobseekerDashboard")
+      console.log("navigating to jobseeker dashboard")
+      window.location.href = "/jobseekerDashboard"
     } else if (res.user.role === USER_ENUMS.EMPLOYER) {
-      router.push("/employerDashboard")
+      console.log("navigating to employer dashboard")
+      window.location.href = "/employerDashboard"
     } else (
-      router.push("/")
+      window.location.href = "/"
     )
   }
 
