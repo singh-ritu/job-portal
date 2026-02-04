@@ -23,7 +23,7 @@ export default function ResetPasswordPage() {
       setLoading(true);
 
       const res = await fetch(
-        `${API_BASE_URL}/api/auth/resetPassword/${token}`,
+        `${API_BASE_URL}/api/auth/reset-Password/${token}`,
         {
           method: "PUT",
           headers: {

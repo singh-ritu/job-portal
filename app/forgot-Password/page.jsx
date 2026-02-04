@@ -9,7 +9,7 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState("");
 
   const submit = async () => {
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/forgotPassword`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/forgot-Password`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),

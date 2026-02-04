@@ -27,6 +27,7 @@ export default async function EmployerLayout({
 
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value ?? "";
+  console.log("Employer Layout Token:", token);
 
   const user = getUserFromToken(token);
 
