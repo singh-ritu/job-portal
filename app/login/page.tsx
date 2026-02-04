@@ -93,7 +93,7 @@ export default function LoginPage() {
                     Password
                   </label>
                   <Link
-                    href="/forgot-password"
+                    href="/forgotPassword"
                     className="text-sm text-[#3456ad] hover:underline"
                   >
                     Forgot password?
