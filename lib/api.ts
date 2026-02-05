@@ -1,4 +1,3 @@
-
 interface GetJobsParams {
   page?: number;
   limit?: number;
@@ -6,6 +5,8 @@ interface GetJobsParams {
   location?: string;
   jobType?: string;
 }
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '';
 
 export async function getPublicJobs(params: GetJobsParams) {
 
@@ -26,7 +27,7 @@ export async function getPublicJobs(params: GetJobsParams) {
   if (location) query.append("location", location);
   if (jobType) query.append("jobType", jobType);
 
-  const res = await fetch(`/api/jobs?${query.toString()}`,
+  const res = await fetch(`${API_BASE_URL}/api/jobs?${query.toString()}`,
     {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -40,7 +41,7 @@ export async function getPublicJobs(params: GetJobsParams) {
 
 
 export async function getLoggedInUserAppliedJobsServer() {
-  const res = await fetch(`/api/applications/my`, {
+  const res = await fetch(`${API_BASE_URL}/api/applications/my`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -57,7 +58,7 @@ export async function getLoggedInUserAppliedJobsServer() {
 
 
 export async function getJobDetails(id: string) {
-  const url = `/api/jobs/${id}`;
+  const url = `${API_BASE_URL}/api/jobs/${id}`;
   console.log("FETCHING:", url);
 
   const res = await fetch(url);
