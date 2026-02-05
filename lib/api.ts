@@ -6,10 +6,16 @@ interface GetJobsParams {
   jobType?: string;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '';
+const getBaseURL = () => {
+  if (typeof window !== 'undefined') {
+    return '';
+  }
+
+  return process.env.NEXT_PUBLIC_API_BASE_URL || 'https://job-portal-2rzq.vercel.app';
+};
 
 export async function getPublicJobs(params: GetJobsParams) {
-
+  const API_BASE_URL = getBaseURL();
   const {
     page = 1,
     limit = 10,
@@ -41,6 +47,7 @@ export async function getPublicJobs(params: GetJobsParams) {
 
 
 export async function getLoggedInUserAppliedJobsServer() {
+  const API_BASE_URL = getBaseURL();
   const res = await fetch(`${API_BASE_URL}/api/applications/my`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
@@ -58,6 +65,7 @@ export async function getLoggedInUserAppliedJobsServer() {
 
 
 export async function getJobDetails(id: string) {
+  const API_BASE_URL = getBaseURL();
   const url = `${API_BASE_URL}/api/jobs/${id}`;
   console.log("FETCHING:", url);
 
@@ -72,7 +80,8 @@ export async function registerUser(data: {
   password: string;
   role: string;
 }) {
-  const res = await fetch(`/api/auth/register`,
+  const API_BASE_URL = getBaseURL();
+  const res = await fetch(`${API_BASE_URL}/api/auth/register`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -93,7 +102,8 @@ export async function loginUser(data: {
   email: string;
   password: string;
 }) {
-  const res = await fetch(`/api/auth/login`,
+  const API_BASE_URL = getBaseURL();
+  const res = await fetch(`${API_BASE_URL}/api/auth/login`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

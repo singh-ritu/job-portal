@@ -1,8 +1,15 @@
 import { cookies } from "next/headers";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '';
+const getBaseURL = () => {
+  if (typeof window !== 'undefined') {
+    return '';
+  }
+
+  return process.env.NEXT_PUBLIC_API_BASE_URL || 'https://job-portal-2rzq.vercel.app';
+};
 
 export async function getLoggedInUserServer() {
+  const API_BASE_URL = getBaseURL();
   const cookieStore = await cookies();
 
   const cookieHeader = cookieStore
@@ -12,7 +19,7 @@ export async function getLoggedInUserServer() {
 
   console.log("SERVER COOKIE HEADER:", cookieHeader || "EMPTY");
 
-  const res = await fetch(`/api/auth/me`, {
+  const res = await fetch(`${API_BASE_URL}/api/auth/me`, {
     headers: {
       Cookie: cookieHeader,
     },
@@ -30,6 +37,7 @@ export async function getLoggedInUserServer() {
 // FETCH LOGGED IN USER APPLICATIONS
 
 export async function getLoggedInUserApplicationsServer() {
+  const API_BASE_URL = getBaseURL();
   const cookieStore = await cookies();
 
   const cookieHeader = cookieStore
@@ -37,7 +45,7 @@ export async function getLoggedInUserApplicationsServer() {
     .map(c => `${c.name}=${c.value}`)
     .join("; ");
 
-  const res = await fetch(`/api/applications/my`, {
+  const res = await fetch(`${API_BASE_URL}/api/applications/my`, {
     headers: {
       Cookie: cookieHeader,
     },
@@ -52,6 +60,7 @@ export async function getLoggedInUserApplicationsServer() {
 }
 
 export async function getLoggedInJobSeekerServer() {
+  const API_BASE_URL = getBaseURL();
   const cookieStore = await cookies();
   const cookieHeader = cookieStore
     .getAll()
@@ -59,7 +68,7 @@ export async function getLoggedInJobSeekerServer() {
     .join(";")
 
   try {
-    const res = await fetch(`/api/jobseekers/my`, {
+    const res = await fetch(`${API_BASE_URL}/api/jobseekers/my`, {
       headers: {
         Cookie: cookieHeader,
       },
@@ -76,6 +85,7 @@ export async function getLoggedInJobSeekerServer() {
 }
 
 export async function getLoggedInEmployerServer() {
+  const API_BASE_URL = getBaseURL();
   const cookieStore = await cookies();
   const cookieHeader = cookieStore
     .getAll()
@@ -83,7 +93,7 @@ export async function getLoggedInEmployerServer() {
     .join(";")
 
   try {
-    const res = await fetch(`/api/employers/my`, {
+    const res = await fetch(`${API_BASE_URL}/api/employers/my`, {
       headers: {
         Cookie: cookieHeader,
       },
