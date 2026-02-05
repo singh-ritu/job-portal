@@ -7,8 +7,6 @@ import { Briefcase } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
-
 export default function ResetPasswordPage() {
   const { token } = useParams();
   const router = useRouter();
@@ -23,7 +21,7 @@ export default function ResetPasswordPage() {
       setLoading(true);
 
       const res = await fetch(
-        `${API_BASE_URL}/api/auth/reset-Password/${token}`,
+        `/api/auth/reset-Password/${token}`,
         {
           method: "PUT",
           headers: {

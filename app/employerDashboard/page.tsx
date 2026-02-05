@@ -6,7 +6,6 @@ import { EmployerJob } from "@/types/employerJob";
 import Link from "next/link";
 import { LayoutDashboardIcon } from "lucide-react";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 export default function EmployerDashboardPage() {
   const [jobs, setJobs] = useState<EmployerJob[]>([]);
@@ -17,7 +16,7 @@ export default function EmployerDashboardPage() {
     const fetchJobs = async () => {
       try {
         const res = await fetch(
-          `${API_BASE_URL}/api/jobs/my-jobs`,
+          `/api/jobs/my-jobs`,
           {
             method: "GET",
             credentials: "include",
@@ -42,7 +41,7 @@ export default function EmployerDashboardPage() {
 
   const handleDeleteJob = async (jobId: string) => {
     try {
-      const res = await fetch(`${API_BASE_URL}/api/jobs/${jobId}`, {
+      const res = await fetch(`/api/jobs/${jobId}`, {
         method: "DELETE",
         credentials: "include",
       });

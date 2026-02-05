@@ -1,10 +1,5 @@
 import { cookies } from "next/headers";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
-
-if (!API_BASE_URL) {
-  throw new Error("API base URL is not defined");
-}
 
 export async function getLoggedInUserServer() {
   const cookieStore = await cookies();
@@ -16,7 +11,7 @@ export async function getLoggedInUserServer() {
 
   console.log("SERVER COOKIE HEADER:", cookieHeader || "EMPTY");
 
-  const res = await fetch(`${API_BASE_URL}/api/auth/me`, {
+  const res = await fetch(`/api/auth/me`, {
     headers: {
       Cookie: cookieHeader,
     },
@@ -41,7 +36,7 @@ export async function getLoggedInUserApplicationsServer() {
     .map(c => `${c.name}=${c.value}`)
     .join("; ");
 
-  const res = await fetch(`${API_BASE_URL}/api/applications/my`, {
+  const res = await fetch(`/api/applications/my`, {
     headers: {
       Cookie: cookieHeader,
     },
@@ -63,7 +58,7 @@ export async function getLoggedInJobSeekerServer() {
     .join(";")
 
   try {
-    const res = await fetch(`${API_BASE_URL}/api/jobseekers/my`, {
+    const res = await fetch(`/api/jobseekers/my`, {
       headers: {
         Cookie: cookieHeader,
       },
@@ -87,7 +82,7 @@ export async function getLoggedInEmployerServer() {
     .join(";")
 
   try {
-    const res = await fetch(`${API_BASE_URL}/api/employers/my`, {
+    const res = await fetch(`/api/employers/my`, {
       headers: {
         Cookie: cookieHeader,
       },

@@ -1,9 +1,3 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
-console.log("API_BASE_URL:", API_BASE_URL);
-
-if (!API_BASE_URL) {
-  throw new Error("API base URL is not defined");
-}
 
 interface GetJobsParams {
   page?: number;
@@ -13,7 +7,6 @@ interface GetJobsParams {
   jobType?: string;
 }
 
-// FETCH JOBS WITH FILTERS AND PAGINATION
 export async function getPublicJobs(params: GetJobsParams) {
 
   const {
@@ -33,7 +26,7 @@ export async function getPublicJobs(params: GetJobsParams) {
   if (location) query.append("location", location);
   if (jobType) query.append("jobType", jobType);
 
-  const res = await fetch(`${API_BASE_URL}/api/jobs?${query.toString()}`,
+  const res = await fetch(`/api/jobs?${query.toString()}`,
     {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -45,9 +38,9 @@ export async function getPublicJobs(params: GetJobsParams) {
   return res.json();
 }
 
-// FETCH JOBS-IDS APPLIED BY LOGGED IN USER
+
 export async function getLoggedInUserAppliedJobsServer() {
-  const res = await fetch(`${API_BASE_URL}/api/applications/my`, {
+  const res = await fetch(`/api/applications/my`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -57,49 +50,28 @@ export async function getLoggedInUserAppliedJobsServer() {
     throw new Error("Failed to fetch user applications");
   }
   const applications = await res.json();
-  // Extract job IDs from applications
+
   const appliedJobIds = applications.map((app: any) => app.job._id.toString());
   return appliedJobIds;
 }
 
-// FETCH JOB DETAILS BY ID
+
 export async function getJobDetails(id: string) {
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/jobs/${id}`;
+  const url = `/api/jobs/${id}`;
   console.log("FETCHING:", url);
 
   const res = await fetch(url);
   if (!res.ok) throw new Error("Failed to fetch job details");
   return res.json();
 }
-// FETCH LOGGED IN USER
-export async function getLoggedInUserClient() {
-  const res = await fetch(`${process.env.API_BASE_URL}/auth/me`, {
-    credentials: "include",
-  });
 
-  if (!res.ok) return null;
-  return res.json();
-}
-
-// FETCH LOGGED IN USER APPLICATIONS
-export async function getLoggedInUserApplications() {
-  const appsRes = await fetch(`${API_BASE_URL}/applications/my`);
-
-  if (!appsRes.ok) {
-    throw new Error("Failed to fetch user applications");
-  }
-  return appsRes.json();
-
-}
-
-// REGISTER USER
 export async function registerUser(data: {
   name: string;
   email: string;
   password: string;
   role: string;
 }) {
-  const res = await fetch(`${API_BASE_URL}/api/auth/register`,
+  const res = await fetch(`/api/auth/register`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -115,12 +87,12 @@ export async function registerUser(data: {
   return res.json();
 }
 
-// LOGIN USER
+
 export async function loginUser(data: {
   email: string;
   password: string;
 }) {
-  const res = await fetch(`${API_BASE_URL}/api/auth/login`,
+  const res = await fetch(`/api/auth/login`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

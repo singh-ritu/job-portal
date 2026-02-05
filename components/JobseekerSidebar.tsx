@@ -14,7 +14,7 @@ import {
   LogOut,
 } from "lucide-react";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
+
 
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
@@ -26,7 +26,7 @@ export default function Sidebar() {
 
   const handleLogout = async () => {
     try {
-      await fetch(`${API_BASE_URL}/api/auth/logout`, {
+      await fetch(`/api/auth/logout`, {
         method: "POST",
         credentials: "include",
       });

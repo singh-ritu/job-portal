@@ -6,7 +6,6 @@ import { UserCircle, Mail } from "lucide-react";
 
 export default function ProfileClient({ user }: any) {
   const router = useRouter();
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
   const [skills, setSkills] = useState<string[]>(user.skills || []);
   const [resumeUrl, setResumeUrl] = useState<string | null>(user.resumeUrl);
@@ -20,7 +19,7 @@ export default function ProfileClient({ user }: any) {
       setSaving(true);
       setError(null);
 
-      const res = await fetch(`${API_BASE_URL}/api/jobseekers/profile`, {
+      const res = await fetch(`/api/jobseekers/profile`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ skills, resumeUrl }),
@@ -50,7 +49,7 @@ export default function ProfileClient({ user }: any) {
       setUploading(true);
       setError(null);
 
-      const res = await fetch(`${API_BASE_URL}/api/upload/resume`, {
+      const res = await fetch(`/api/upload/resume`, {
         method: "POST",
         body: formData,
         credentials: "include",

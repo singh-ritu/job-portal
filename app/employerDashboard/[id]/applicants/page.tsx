@@ -5,7 +5,6 @@ import { useParams } from "next/navigation";
 import { Applicant } from "@/types/applicants";
 import { Mail, Users } from "lucide-react";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 export default function ApplicantsPage() {
   const { id } = useParams();
@@ -17,7 +16,7 @@ export default function ApplicantsPage() {
   useEffect(() => {
     const fetchApplicants = async () => {
       const res = await fetch(
-        `${API_BASE_URL}/api/applications/${id}/applicants`,
+        `/api/applications/${id}/applicants`,
         {
           credentials: "include",
         }

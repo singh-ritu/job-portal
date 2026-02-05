@@ -10,9 +10,7 @@ import { USER_ENUMS } from "../enums/user.enums";
 
 export default function LoginPage() {
 
-  const router = useRouter()
-
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
+  const router = useRouter();
 
   const [form, setForm] = useState({
     email: "",
@@ -33,13 +31,13 @@ export default function LoginPage() {
 
     if (res.user.role === USER_ENUMS.JOB_SEEKER) {
       console.log("navigating to jobseeker dashboard")
-      window.location.href = "/jobseekerDashboard"
+      router.push("/jobseekerDashboard")
     } else if (res.user.role === USER_ENUMS.EMPLOYER) {
       console.log("navigating to employer dashboard")
-      window.location.href = "/employerDashboard"
-    } else (
-      window.location.href = "/"
-    )
+      router.push("/employerDashboard")
+    } else {
+      router.push("/")
+    }
   }
 
   return (
@@ -138,7 +136,7 @@ export default function LoginPage() {
                 className="flex items-center justify-center gap-2 rounded-md border border-gray-200
                bg-background px-3 py-2 text-sm font-medium cursor-pointer
                hover:bg-accent transition"
-                onClick={() => window.location.href = `${API_BASE_URL}/api/auth/google`}
+                onClick={() => window.location.href = `/api/auth/google`}
               >
                 <svg className="h-4 w-4" viewBox="0 0 24 24">
                   <path

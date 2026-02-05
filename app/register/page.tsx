@@ -11,7 +11,6 @@ import { Briefcase, ArrowLeft } from "lucide-react"
 export default function RegisterPage() {
 
   const router = useRouter();
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
   const [form, setForm] = useState({
     name: "",
@@ -145,7 +144,7 @@ export default function RegisterPage() {
               </button>
 
             </form>
-            {/* Footer */}
+
             <p className="mt-6 text-center text-sm text-(--muted-foreground)">
               Already have an account?{" "}
               <Link

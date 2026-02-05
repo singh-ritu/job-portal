@@ -3,7 +3,6 @@ import { redirect, useRouter } from "next/navigation";
 import Link from "next/link";
 import { User } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 export default function SelectRole() {
 
@@ -11,7 +10,7 @@ export default function SelectRole() {
 
   const chooseRole = async (role: "employer" | "jobseeker") => {
 
-    const res = await fetch(`${API_BASE_URL}/api/auth/setRole`, {
+    const res = await fetch(`/api/auth/setRole`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },

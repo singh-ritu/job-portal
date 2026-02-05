@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
+
 
 type ApplyPanelProps = {
   jobId: string;
@@ -33,7 +33,7 @@ export default function ApplyPanel({
       setError(null);
       setUploading(true);
 
-      const res = await fetch(`${API_BASE_URL}/api/upload/resume`, {
+      const res = await fetch(`/api/upload/resume`, {
         method: "POST",
         body: formData,
         credentials: "include",
@@ -65,7 +65,7 @@ export default function ApplyPanel({
       setError(null);
       setSubmitting(true);
 
-      const res = await fetch(`${API_BASE_URL}/api/applications/apply/${jobId}`, {
+      const res = await fetch(`/api/applications/apply/${jobId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

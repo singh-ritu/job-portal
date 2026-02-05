@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { Edit } from "lucide-react";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 export default function EditJobPage() {
   const { id } = useParams();
@@ -23,7 +22,7 @@ export default function EditJobPage() {
   useEffect(() => {
     const fetchJob = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/api/jobs/${id}`, {
+        const res = await fetch(`/api/jobs/${id}`, {
           credentials: "include",
         });
         const data = await res.json();
@@ -55,7 +54,7 @@ export default function EditJobPage() {
     e.preventDefault();
 
     try {
-      const res = await fetch(`${API_BASE_URL}/api/jobs/${id}`, {
+      const res = await fetch(`/api/jobs/${id}`, {
         method: "PUT",
         credentials: "include",
         headers: {

@@ -4,8 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { User } from "lucide-react";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
-
 
 export default function CreateJobPage() {
   const router = useRouter();
@@ -37,7 +35,7 @@ export default function CreateJobPage() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${API_BASE_URL}/api/jobs`, {
+      const res = await fetch(`/api/jobs`, {
         method: "POST",
         credentials: "include",
         headers: {

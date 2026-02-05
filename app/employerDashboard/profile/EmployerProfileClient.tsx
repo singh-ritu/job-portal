@@ -6,7 +6,7 @@ import { Mail, UserCircle } from "lucide-react";
 
 export default function EmployerProfileClient({ user }: any) {
 
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
+
 
   const router = useRouter()
   const [profile, setProfile] = useState({
@@ -37,7 +37,7 @@ export default function EmployerProfileClient({ user }: any) {
   const handleSave = async () => {
     setSaving(true);
 
-    const res = await fetch(`${API_BASE_URL}/api/employers/profile`,
+    const res = await fetch(`/api/employers/profile`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
