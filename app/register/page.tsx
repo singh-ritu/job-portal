@@ -7,6 +7,7 @@ import { USER_ENUMS } from "../enums/user.enums";
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Briefcase, ArrowLeft } from "lucide-react"
+import toast from "react-hot-toast";
 
 export default function RegisterPage() {
 
@@ -20,15 +21,19 @@ export default function RegisterPage() {
   });
 
   const handleSubmit = async (e: any) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    const res = await registerUser(form);
+      const res = await registerUser(form);
 
-    if (res.success) {
-      alert("Registered successfully");
-      router.push("/login");
-    } else {
-      alert(res.message);
+      if (res.success) {
+        toast.success(res.message || "Registration successful!");
+        router.push("/login");
+      } else {
+        toast.error(res.message || "Registration failed. Please try again.");
+      }
+    } catch (error) {
+      toast.error("An error occurred during registration. Please try again.");
     }
   };
 

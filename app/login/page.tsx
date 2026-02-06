@@ -7,6 +7,7 @@ import { loginUser } from "@/lib/api"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { USER_ENUMS } from "../enums/user.enums";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
 
@@ -19,25 +20,27 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: any) => {
 
-    e.preventDefault();
-    const res = await loginUser(form)
+    try {
+      e.preventDefault();
+      const res = await loginUser(form)
 
-    console.log("login response:", res)
-    if (!res.success) {
-      alert(res.message)
+      if (!res.success) {
+        toast.error(res.message || "Login failed. Please try again.")
+      } else {
+        toast.success(res.message || "Login successful!")
+      }
+
+      if (res.user.role === USER_ENUMS.JOB_SEEKER) {
+        router.push("/jobseekerDashboard")
+      } else if (res.user.role === USER_ENUMS.EMPLOYER) {
+        router.push("/employerDashboard")
+      } else {
+        router.push("/")
+      }
+    } catch (error) {
+      toast.error("An error occurred during login. Please try again.")
     }
-    console.log("response:", res)
 
-
-    if (res.user.role === USER_ENUMS.JOB_SEEKER) {
-      console.log("navigating to jobseeker dashboard")
-      router.push("/jobseekerDashboard")
-    } else if (res.user.role === USER_ENUMS.EMPLOYER) {
-      console.log("navigating to employer dashboard")
-      router.push("/employerDashboard")
-    } else {
-      router.push("/")
-    }
   }
 
   return (
