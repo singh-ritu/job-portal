@@ -175,7 +175,8 @@ export default function CreateJobPage() {
               Salary (Annual)
             </label>
             <input
-              name="title"
+              type="number"
+              name="salary"
               value={form.salary}
               placeholder="Enter annual salary"
               onChange={handleChange}
