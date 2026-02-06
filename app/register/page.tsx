@@ -25,7 +25,7 @@ export default function RegisterPage() {
       e.preventDefault();
 
       const res = await registerUser(form);
-
+      console.log("Response from registerUser:", res);
       if (res.success) {
         toast.success(res.message || "Registration successful!");
         router.push("/login");

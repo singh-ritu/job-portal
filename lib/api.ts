@@ -102,28 +102,48 @@ export async function loginUser(data: {
   email: string;
   password: string;
 }) {
-  const API_BASE_URL = getBaseURL();
-  const res = await fetch(`${API_BASE_URL}/api/auth/login`,
-    {
+  try {
+    const API_BASE_URL = getBaseURL();
+    const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
       credentials: "include",
     });
 
-  const text = await res.text();
-  let result;
+    const text = await res.text();
+    let result;
 
-  try {
-    result = text ? JSON.parse(text) : {};
-  } catch {
-    throw new Error("Invalid JSON response from server");
+    try {
+      result = text ? JSON.parse(text) : {};
+    } catch {
+      return {
+        success: false,
+        message: "Invalid response from server"
+      };
+    }
+
+    if (!res.ok) {
+      return {
+        success: false,
+        message: result.message || "Login failed",
+        code: result.code,
+        status: res.status
+      };
+    }
+
+    return {
+      success: true,
+      message: result.message || "Login successful",
+      user: result.user,
+      ...result
+    };
+
+  } catch (error) {
+    return {
+      success: false,
+      message: "Unable to connect to server. Please check your connection."
+    };
   }
-
-  if (!res.ok) {
-    throw new Error(result.message || "Login failed");
-  }
-
-  return result;
 }
 
